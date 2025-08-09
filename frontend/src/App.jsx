@@ -203,7 +203,7 @@ const [overview, setOverview] = useState(null);
 
 
   return (
-    <Router>
+    <Router basename='/signup'>
       <Routes>
         <Route path='/signup' element={<Signup/>} />
         <Route path='/login' element={<Login/>} />
