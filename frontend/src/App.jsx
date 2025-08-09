@@ -203,9 +203,9 @@ const [overview, setOverview] = useState(null);
 
 
   return (
-    <Router basename='/signup'>
+    <Router>
       <Routes>
-        <Route path='/signup' element={<Signup/>} />
+        <Route path='/' element={<Signup/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/home' element={
           loadingProducts?
