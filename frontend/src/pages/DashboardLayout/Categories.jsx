@@ -23,7 +23,7 @@ const Categories = ({ darkMode }) => {
   const fetchCategories = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:8000/category/getAll');
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/category/getAll`);
       if (response) {
         setCategories(response.data.allCategories);
       }
@@ -38,7 +38,7 @@ const Categories = ({ darkMode }) => {
   const deleteCategory = async (categoryId) => {
 
       try {
-        const response = await axios.delete(`http://localhost:8000/category/delete/${categoryId}`);
+        const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/category/delete/${categoryId}`);
         if (response) {
           setCategories(categories.filter(cat => cat._id !== categoryId));
         } else {

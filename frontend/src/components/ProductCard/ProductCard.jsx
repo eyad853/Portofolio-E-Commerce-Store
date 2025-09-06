@@ -11,7 +11,7 @@ const ProductCard = ({name,img , review , numbersOfReviews , price , setIsOpen})
     price,
 }
 try{
-    await axios.post("http://localhost:3000/addInCart" , data)
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/addInCart`, data)
 }catch(error){
     console.log(error);
         }

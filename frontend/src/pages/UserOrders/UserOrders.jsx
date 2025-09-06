@@ -13,7 +13,7 @@ const UserOrders = ({user, darkMode,storeName,storeLogo}) => {
   const fetchOrders = async() => {
     try {
       setLoading(true)
-      const response = await axios.get('http://localhost:8000/order/getUserOrders', {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/order/getUserOrders`, {
         withCredentials: true
       })
       if(response && response.data) {
@@ -38,7 +38,7 @@ const UserOrders = ({user, darkMode,storeName,storeLogo}) => {
       const originalOrders = [...orders]
       setOrders(orders.filter(order => order._id !== orderId))
       
-      const response = await axios.delete(`http://localhost:8000/order/cancel/${orderId}`, {
+      const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/order/cancel/${orderId}`, {
         withCredentials: true
       })
       
@@ -134,7 +134,7 @@ const UserOrders = ({user, darkMode,storeName,storeLogo}) => {
                                 {/* Product Image */}
                                 <div className={`h-16 w-16 sm:h-20 sm:w-20 rounded-lg flex justify-center items-center flex-shrink-0 ${darkMode ? "bg-[#3A3A3A]" : "bg-gray-100"}`}>
                                   <img 
-                                    src={`http://localhost:8000${item.product?.mainImage}`} 
+                                    src={`${import.meta.env.VITE_BACKEND_URL}${item.product?.mainImage}`} 
                                     className='w-full h-full object-cover rounded-lg' 
                                     alt={item.product?.name || 'Product'} 
                                     onError={(e) => {

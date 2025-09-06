@@ -19,7 +19,7 @@ const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,storeName,storeLogo}) 
   const handleCheckout = async () => {
     const amount = calculateTotalInCents(); // get total in cents
   try {
-    const response = await axios.post('http://localhost:8000/create-payment-intent', {
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/create-payment-intent`, {
       amount
     });
 
@@ -73,7 +73,7 @@ const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,storeName,storeLogo}) 
 const clearCart = async () => {
   try {
     setCart([])
-    const response = await axios.delete(`http://localhost:8000/cart/clear`,{ 
+    const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/cart/clear`,{ 
         withCredentials: true 
       });
     console.log(response.data.message); // "Cart cleared successfully"
@@ -87,7 +87,7 @@ const clearCart = async () => {
   const getCartProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:8000/cart/getAll", { 
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/cart/getAll`, { 
         withCredentials: true 
       });
       
@@ -112,7 +112,7 @@ const clearCart = async () => {
   const removeItem = async (productId) => {
     try {
       setCart(prevCart => ({...prevCart,items: prevCart.items.filter(item => item.productId && item.productId._id !== productId)}));
-      const response = await axios.delete(`http://localhost:8000/cart/remove/${productId}`, {
+      const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/cart/remove/${productId}`, {
         withCredentials: true
       });
     } catch (err) {
@@ -150,7 +150,7 @@ const clearCart = async () => {
   const increaseQuantity = async(productId)=>{
     try{
       setCart((prevCart) => ({...prevCart,items: prevCart.items.map((item) =>item.productId._id === productId? { ...item, quantity: item.quantity + 1 }: item),}));
-      const response = axios.put(`http://localhost:8000/cart/increase/${productId}`, {}  , {
+      const response = axios.put(`${import.meta.env.VITE_BACKEND_URL}/cart/increase/${productId}`, {}  , {
         withCredentials: true
       })
     }catch(err){
@@ -161,7 +161,7 @@ const clearCart = async () => {
   const decreaseQuantity = async(productId)=>{
     try{
       setCart((prevCart) => ({...prevCart,items: prevCart.items.map((item) =>item.productId._id === productId? { ...item, quantity: item.quantity - 1 }: item),}));
-      const response = axios.put(`http://localhost:8000/cart/decrease/${productId}`, {} , {
+      const response = axios.put(`${import.meta.env.VITE_BACKEND_URL}/cart/decrease/${productId}`, {} , {
         withCredentials: true
       })
     }catch(err){
@@ -200,10 +200,10 @@ const clearCart = async () => {
   };
 
   try {
-    const response = await axios.post('http://localhost:8000/order/create', order, {
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/order/create`, order, {
       withCredentials: true,
     });
-    const secondResponse = await axios.patch('http://localhost:8000/order/upadteUserLocation',{location:shippingAddress} , {withCredentials:true})
+    const secondResponse = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/order/upadteUserLocation`,{location:shippingAddress} , {withCredentials:true})
     console.log("Order created:", response.data);
   } catch (error) {
     console.error("Order creation error:", error);
@@ -245,7 +245,7 @@ const clearCart = async () => {
                       <div className={`w-full md:w-24 h-48 md:h-24 rounded-lg overflow-hidden flex-shrink-0 ${darkMode ? "bg-[#3A3A3A]" : "bg-gray-200"}`}>
                         {item.productId?.mainImage ? (
                           <img 
-                            src={`http://localhost:8000${item.productId.mainImage}`} 
+                            src={`${import.meta.env.VITE_BACKEND_URL}${item.productId.mainImage}`} 
                             className="w-full h-full object-contain"
                           />
                         ) : (

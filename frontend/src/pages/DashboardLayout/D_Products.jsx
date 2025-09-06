@@ -85,7 +85,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol }) => {
   // Fetch categories from backend
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/category/getAll');
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/category/getAll`);
       if (response) {
         setCategories(response.data.allCategories);
       }
@@ -182,7 +182,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol }) => {
         let response;
         if (isUpdating) {
           // Update existing product
-          response = await axios.put(`http://localhost:8000/product/update/${currentProductId}`, formData, {
+          response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/product/update/${currentProductId}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             },
@@ -191,7 +191,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol }) => {
           setSuccessMessage('Product updated successfully!');
         } else {
           // Create new product
-          response = await axios.post('http://localhost:8000/product/create', formData, {
+          response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/product/create`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             },
@@ -248,7 +248,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol }) => {
 
   const fetchAllProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/product/getAll');
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/product/getAll`);
       if (response.data.success) {
         setProducts(response.data.products);
         setProductsCount(response.data.count);
@@ -278,7 +278,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol }) => {
       // Set existing image paths
       if (product.mainImage) {
         setExistingMainImage(product.mainImage);
-        setPreviewMainImage(`http://localhost:8000${product.mainImage}`);
+        setPreviewMainImage(`${import.meta.env.VITE_BACKEND_URL}${product.mainImage}`);
       }
       
       // Handle extra images if they exist
@@ -289,7 +289,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol }) => {
         product.extraImages.forEach((img, index) => {
           if (index < 3) {
             newExistingExtraImages[index] = img;
-            newPreviewExtraImages[index] = `http://localhost:8000${img}`;
+            newPreviewExtraImages[index] = `${import.meta.env.VITE_BACKEND_URL}${img}`;
           }
         });
       }
@@ -310,7 +310,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol }) => {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      const response = await axios.delete(`http://localhost:8000/product/delete/${productId}`);
+      const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/product/delete/${productId}`);
       if (response) {
         setProducts(products.filter(product => product._id !== productId));
       }
@@ -352,7 +352,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol }) => {
                       <div className="w-full h-full flex justify-center items-center">
                         <div className="w-66 h-46 flex justify-center items-center">
                           <img 
-                            src={`http://localhost:8000${product.mainImage}`} 
+                            src={`${import.meta.env.VITE_BACKEND_URL}${product.mainImage}`} 
                             className="h-full w-full object-contain"
                             alt={product.name}
                           />

@@ -66,7 +66,7 @@ const ThirdPart = ({handleShow,currencySymbol,darkMode, products , setProducts  
                                             {/* mainImage  */}
                                             <div className="h-3/5 bg-neutral-200 flex justify-center items-center">
                                               <img 
-                                                src={`http://localhost:8000${product.mainImage}`} 
+                                                src={`${import.meta.env.VITE_BACKEND_URL}${product.mainImage}`} 
                                                 className='w-full h-full object-contain' 
                                               />
                                             </div>

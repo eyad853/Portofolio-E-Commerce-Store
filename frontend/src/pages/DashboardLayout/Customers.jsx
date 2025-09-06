@@ -25,7 +25,7 @@ const Customers = ({ socket, darkMode }) => {
   const fetchCustomers = async () => {
     try {
       setLoading(true)
-      const response = await axios.get('http://localhost:8000/customers/getAll')
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/customers/getAll`)
       if (response) {
         setCustomers(response.data.usersWithStatus)
         console.log('customers has been fetched');

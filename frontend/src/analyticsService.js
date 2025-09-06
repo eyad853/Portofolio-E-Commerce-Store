@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Assuming your backend is running on this base URL
-const API_BASE_URL = 'http://localhost:8000'; // Adjust if your API endpoint is different
+const API_BASE_URL = import.meta.env.VITE_BACKEND_URL; // Adjust if your API endpoint is different
 
 const analyticsService = {
   getAnalyticsOverview: async () => {

@@ -79,7 +79,7 @@ const SettingsPage = ({
     formData.append('currencySymbol', currencySymbol)
 
     try {
-      const { data } = await axios.patch('http://localhost:8000/settings/update', formData);
+      const { data } = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/settings/update`, formData);
       console.log(data);
       
       fetchSettings()

@@ -65,7 +65,7 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
     const handleFetchProduct = async () => {
         try {
             setLoading(true)
-            const response = await axios.get(`http://localhost:8000/product/getProductById/${id}`)
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/product/getProductById/${id}`)
 
             if (response) {
                 setProduct(response.data.product)
@@ -221,7 +221,7 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
                         <div className={`aspect-square w-full rounded-lg overflow-hidden mb-4 ${darkMode ? "bg-[#3A3A3A]" : "bg-gray-100"}`}>
                             {showingImage && (
                                 <img
-                                    src={`http://localhost:8000${showingImage}`}
+                                    src={`${import.meta.env.VITE_BACKEND_URL}${showingImage}`}
                                     className='w-full h-full object-cover hover:scale-105 transition-transform duration-300'
                                     alt={product.name}
                                 />
@@ -240,7 +240,7 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
                                     onClick={() => setShowingImage(product.mainImage)}
                                 >
                                     <img
-                                        src={`http://localhost:8000${product.mainImage}`}
+                                        src={`${import.meta.env.VITE_BACKEND_URL}${product.mainImage}`}
                                         alt={product.name}
                                         className='w-full h-full object-cover'
                                     />
@@ -256,7 +256,7 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
                                         onClick={() => setShowingImage(image)}
                                     >
                                         <img
-                                            src={`http://localhost:8000${image}`}
+                                            src={`${import.meta.env.VITE_BACKEND_URL}${image}`}
                                             alt={`${product.name} view ${index + 1}`}
                                             className='w-full h-full object-cover'
                                         />

@@ -16,7 +16,7 @@ const D_Sidebar = ({storeName, storeLogo, isOpen, onClose, darkMode}) => {
 
     const logoutUser = async () => {
         try {
-            const response = await axios.delete('http://localhost:8000/settings/logoutAccount', {
+            const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/settings/logoutAccount`, {
                 withCredentials: true,
             });
 

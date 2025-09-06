@@ -6,7 +6,7 @@ const Sidebar = ({searchCategory, setSearchCategory,darkMode}) => {
   
   const fetchCategories = async()=>{
     try{
-      const response = await axios.get('http://localhost:8000/category/getAll')
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/category/getAll`)
       if(response){
         setCategories(response.data.allCategories)
       }

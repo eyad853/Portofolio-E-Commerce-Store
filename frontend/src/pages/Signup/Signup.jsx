@@ -17,11 +17,11 @@ const Signup = () => {
 
     // OAuth handlers - these correctly use window.location.href for redirects
     const handleSignUpWithGoogle = () => {
-        window.location.href = "http://localhost:8000/auth/google"; // Ensure /api prefix
+        window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/google`; // Ensure /api prefix
     };
 
     const handleSignUpWithGithub = () => {
-        window.location.href = "http://localhost:8000/auth/github"; // Ensure /api prefix
+        window.location.href = `${import.meta.env.VITE_BACKEND_URL}/auth/github`; // Ensure /api prefix
     };
 
     // Handle file selection for preview
@@ -40,7 +40,7 @@ const Signup = () => {
       const handleTryAsAdmin = async () => {
         setLoadings(true)
         try {
-            const res = await axios.post('http://localhost:8000/tryAsFakeAdmin',{} , {withCredentials:true});
+            const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/tryAsFakeAdmin`,{} , {withCredentials:true});
             if(!res.data.error){
                 navigate('/home')
             }
@@ -84,7 +84,7 @@ const Signup = () => {
                     {/* IMPORTANT: This form will submit directly to the backend.
                         The `encType` is crucial for file uploads. */}
                     <form
-                        action="http://localhost:8000/signup" // Ensure /api prefix here
+                        action={`${import.meta.env.VITE_BACKEND_URL}/signup`} // Ensure /api prefix here
                         method="POST"
                         encType="multipart/form-data" // Crucial for file uploads
                         className='w-full flex flex-col lg:flex-row flex-1'

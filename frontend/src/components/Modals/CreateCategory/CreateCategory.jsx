@@ -15,7 +15,7 @@ const CreateCategory = ({isOpen, editingCategory, setEditingCategory, setIsOpen,
     
     const handleAddCategory = async() => {
         try {
-            const response = await axios.post('http://localhost:8000/category/add', {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/category/add`, {
                 category
             })
             if (response) {
@@ -30,7 +30,7 @@ const CreateCategory = ({isOpen, editingCategory, setEditingCategory, setIsOpen,
     
     const updateCategory = async(categoryId) => {
         try {
-            const response = await axios.put(`http://localhost:8000/category/update/${categoryId}`, {
+            const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/category/update/${categoryId}`, {
                 category
             })
             if (response) {

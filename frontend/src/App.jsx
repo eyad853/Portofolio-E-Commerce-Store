@@ -21,7 +21,7 @@ import UserOrders from './pages/UserOrders/UserOrders'
 import analyticsService from './analyticsService'
 import Maintenance from './pages/Maintenance/Maintenance'
 Modal.setAppElement("#root")
-const socket = io('http://localhost:8000' ,  {
+const socket = io(import.meta.env.VITE_BACKEND_URL ,  {
   transports: ['websocket'],
   withCredentials: true
 })
@@ -52,7 +52,7 @@ const App = () => {
 const fetchAllProducts = async () => {
   try {
         setLoadingProducts(true)
-          const response = await axios.get('http://localhost:8000/product/getAll');
+          const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/product/getAll`);
           if (response.data.success) {
           setProducts(response.data.products);
           }
@@ -70,7 +70,7 @@ useEffect(() => {
 
   useEffect(() => {
     setLoadingUser(true)
-    axios.get('http://localhost:8000/api/user', { withCredentials: true })
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/user`, { withCredentials: true })
         .then(response => {
             if (!response.data.error) {
                 setUser(response.data.user);
@@ -99,7 +99,7 @@ const handleAddToCart = async(product_id)=>{
     }
     
     try{
-        const response = axios.post("http://localhost:8000/cart/create" , item , {withCredentials: true})
+        const response = axios.post(`${import.meta.env.VITE_BACKEND_URL}/cart/create` , item , {withCredentials: true})
     }catch(err){
         console.log(err);
     }
@@ -124,7 +124,7 @@ const updateProductReview = async(productId, review , comment)=>{
     )
   );
   try{
-    const response = await axios.patch(`http://localhost:8000/product/updateProductReview/${productId}/${review}` ,{comment} , {withCredentials:true})
+    const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/product/updateProductReview/${productId}/${review}` ,{comment} , {withCredentials:true})
   }catch(err){
     console.log(err);
   }
@@ -183,7 +183,7 @@ const [overview, setOverview] = useState(null);
   async function fetchSettings() {
     setLoadingSettings(true);
     try {
-      const { data } = await axios.get('http://localhost:8000/settings/get');
+      const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/settings/get`);
       setStoreName(data.storeName || '');
       setStoreLogo(data.logo || '');
       setDarkMode(data.darkMode ?? false);

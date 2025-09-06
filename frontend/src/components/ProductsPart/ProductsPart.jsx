@@ -73,7 +73,7 @@ const ProductsPart = ({currencySymbol,products ,handleShow ,darkMode ,updateProd
                 {/* mainImage  */}
                 <div className="h-48 md:h-56 lg:h-64 bg-neutral-200 flex justify-center items-center">
                   <img 
-                    src={`http://localhost:8000${product.mainImage}`} 
+                    src={`${import.meta.env.VITE_BACKEND_URL}${product.mainImage}`} 
                     className='w-full h-full object-contain' 
                   />
                 </div>

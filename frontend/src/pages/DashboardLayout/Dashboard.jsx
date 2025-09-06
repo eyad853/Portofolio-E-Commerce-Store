@@ -10,7 +10,7 @@ const Dashboard = ({ overview, ordersPerDay, monthlyOverview, topSellingProducts
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/order/getAll', {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/order/getAll`, {
         withCredentials: true
       });
       
