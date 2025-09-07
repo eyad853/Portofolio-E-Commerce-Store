@@ -42,7 +42,7 @@ export const normalSignUp = async (req, res) => {
         });
 
         // Construct full avatar URL if avatar exists
-        if (avatar) newUser.avatar = `http://localhost:8000/uploads/profile/avatars/${avatar}`;
+        if (avatar) newUser.avatar = `${process.env.backendURL}/uploads/profile/avatars/${avatar}`;
 
         await newUser.save();
 
@@ -1125,7 +1125,7 @@ export const updateSettingsController = async (req, res) => {
     if (currencySymbol !== undefined) settings.currencySymbol = currencySymbol;
 
     if (logoFile) {
-      settings.logo = `http://localhost:8000/uploads/profile/logos/${logoFile.filename}`;
+      settings.logo = `${process.env.backendURL}/uploads/profile/logos/${logoFile.filename}`;
     }
 
     await settings.save(); // FIXED: added await
