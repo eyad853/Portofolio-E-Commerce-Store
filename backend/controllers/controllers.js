@@ -1,3 +1,5 @@
+import dotenv from 'dotenv' 
+dotenv.config()
 import User from "../schemas/UserSchema.js";
 import passport from "passport"
 import bcrypt from "bcrypt";
@@ -40,7 +42,7 @@ export const normalSignUp = async (req, res) => {
         });
 
         // Construct full avatar URL if avatar exists
-        if (avatar) newUser.avatar = `${process.env.vercelDomain}/uploads/profile/avatars/${avatar}`;
+        if (avatar) newUser.avatar = `http://localhost:8000/uploads/profile/avatars/${avatar}`;
 
         await newUser.save();
 
@@ -49,11 +51,11 @@ export const normalSignUp = async (req, res) => {
             if (err) {
                 console.error("Login after signup failed:", err);
                 // If login fails, redirect to login page with a status
-                return res.redirect(`${process.env.vercelDomain}/login?auth_status=signup_login_failed`);
+                return res.redirect(`${process.env.frontendURL}/login?auth_status=signup_login_failed`);
             }
             console.log("User logged in after signup (server-side):", req.user?._id || 'User object not available');
             // Redirect after successful login to ensure session cookie is properly set by browser
-            res.redirect(`${process.env.vercelDomain}/home`); // Redirect to home page
+            res.redirect(`${process.env.frontendURL}/home`); // Redirect to home page
         });
     } catch (error) {
         console.error("Signup error:", error); // Log the actual error
@@ -159,20 +161,31 @@ export const tryAsFakeAdmin = async (req, res) => {
   }
 };
 
+console.log('data in controllers.js')
+console.log("frontendURL =", process.env.frontendURL);
+console.log("DB =", process.env.DB);
+console.log("SESSION_SECRET =", process.env.SESSION_SECRET);
+console.log("googleClientID =", process.env.googleClientID);
+console.log("googleClientSecret =", process.env.googleClientSecret);
+console.log("googleCallbackURL =", process.env.googleCallbackURL);
+console.log("githubClientID =", process.env.githubClientID);
+console.log("githubClientSecret =", process.env.githubClientSecret);
+console.log("githubCallbackURL =", process.env.githubCallbackURL);
+
 export const firstGoogleRoute = passport.authenticate("google" , {
     scope: ['profile', 'email']
 })
 
 export const secondGoogleRoute =  passport.authenticate('google', {
-    successRedirect: `${process.env.vercelDomain}/home`, // Redirect if authentication succeeds
-    failureRedirect: `${process.env.vercelDomain}/login`,    // Redirect if authentication fails
+    successRedirect: `${process.env.frontendURL}/home`, // Redirect if authentication succeeds
+    failureRedirect: `${process.env.frontendURL}/login`,    // Redirect if authentication fails
 })
 
 export const firstGithubRoute = passport.authenticate('github' ,  { scope: ['user:email'] })
 
 export const secondGithubRoute =  passport.authenticate('github', { 
-   successRedirect: `${process.env.vercelDomain}/home`, // No spaces, just the URL
-failureRedirect: `${process.env.vercelDomain}/login`
+   successRedirect: `${process.env.frontendURL}/home`, // No spaces, just the URL
+failureRedirect: `${process.env.frontendURL}/login`
 }
 )
 

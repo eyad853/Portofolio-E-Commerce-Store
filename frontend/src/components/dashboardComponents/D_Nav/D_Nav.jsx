@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const D_Nav = ({user, onToggleSidebar,darkMode}) => {
   return (
-    <div className='w-full h-16 flex items-center px-3 sm:px-5 justify-between border-neutral-300 dark:border-neutral-700 border-b bg-white dark:bg-[#1E1E1E] transition-colors duration-300'>
+    <div className={`w-full h-16 flex items-center px-3 sm:px-5 justify-between border-neutral-300 ${darkMode?"bg-[#1E1E1E]":"bg-white"} border-b  transition-colors duration-300`}>
         
         {/* Left Section - Mobile Menu + Greeting */}
         <div className="flex items-center gap-3">
@@ -18,7 +18,7 @@ const D_Nav = ({user, onToggleSidebar,darkMode}) => {
             </button>
             
             {/* Greeting - Hidden on very small screens */}
-            <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-neutral-800 dark:text-white truncate">
+            <div className={`text-xl flex items-center gap-2.5 sm:text-2xl lg:text-3xl font-bold ${darkMode?"text-white":"text-neutral-800"} truncate`}>
                 <span className="hidden sm:inline">Hello </span>
                 <span className="truncate max-w-[150px] sm:max-w-none inline-block">
                     {user && user.username}

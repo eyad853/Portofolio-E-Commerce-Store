@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 const adminSettingsSchema = new mongoose.Schema({
   storeName: {
     type: String,
-    default: 'My E-Commerce Store',
+    default: 'ClickCart',
   },
   logo: {
     type: String, // URL or path to the logo image
-    default: '/images/default-logo.png',
+    default: '/cart.png',
   },
   darkMode: {
     type: Boolean,
