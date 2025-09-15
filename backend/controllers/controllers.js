@@ -161,17 +161,6 @@ export const tryAsFakeAdmin = async (req, res) => {
   }
 };
 
-console.log('data in controllers.js')
-console.log("frontendURL =", process.env.frontendURL);
-console.log("DB =", process.env.DB);
-console.log("SESSION_SECRET =", process.env.SESSION_SECRET);
-console.log("googleClientID =", process.env.googleClientID);
-console.log("googleClientSecret =", process.env.googleClientSecret);
-console.log("googleCallbackURL =", process.env.googleCallbackURL);
-console.log("githubClientID =", process.env.githubClientID);
-console.log("githubClientSecret =", process.env.githubClientSecret);
-console.log("githubCallbackURL =", process.env.githubCallbackURL);
-
 export const firstGoogleRoute = passport.authenticate("google" , {
     scope: ['profile', 'email']
 })
