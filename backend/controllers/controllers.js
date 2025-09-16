@@ -47,16 +47,17 @@ export const normalSignUp = async (req, res) => {
         await newUser.save();
 
         // Log in the user right after signup using Passport's req.login
-        req.login(newUser, (err) => {
-            if (err) {
-                console.error("Login after signup failed:", err);
-                // If login fails, redirect to login page with a status
-                return res.redirect(`${process.env.frontendURL}/login?auth_status=signup_login_failed`);
-            }
-            console.log("User logged in after signup (server-side):", req.user?._id || 'User object not available');
-            // Redirect after successful login to ensure session cookie is properly set by browser
-            res.redirect(`${process.env.frontendURL}/home`); // Redirect to home page
-        });
+req.login(newUser, (err) => {
+  if (err) {
+    console.error("Login after signup failed:", err);
+    return res.status(500).json({ error: true, message: "Signup succeeded but login failed" });
+  }
+
+  console.log("User logged in after signup:", req.user?._id || 'User object not available');
+
+  // ❌ No response here → browser never gets cookie
+  return res.status(200).json({ error: false, message: "Signup successful" }); // ✅ Must return JSON
+});
     } catch (error) {
         console.error("Signup error:", error); // Log the actual error
         res.status(500).json({
@@ -128,15 +129,22 @@ export const normalLogin = async (req, res) => {
     }
 };
 
-export const tryAsFakeAdmin = async (req, res) => {
+export const tryAsFakeAdmin = async (req, res, next) => {
   try {
+    // Ensure logout finishes before continuing
+    await new Promise((resolve, reject) => {
+      req.logout(err => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+
     let user = await User.findOne({ role: 'admin', adminType: 'fake' });
 
-    // لو مفيش fake admin هنعمله
     if (!user) {
       const hashedPassword = await bcrypt.hash('demo1234', 10);
       user = new User({
-        username:"Fake_Admin",
+        username: "Fake_Admin",
         email: 'fakeadmin@demo.com',
         password: hashedPassword,
         role: 'admin',
@@ -146,9 +154,7 @@ export const tryAsFakeAdmin = async (req, res) => {
     }
 
     req.login(user, (err) => {
-      if (err) {
-        return res.status(500).json({ error: true, message: 'Login failed' });
-      }
+      if (err) return next(err);
 
       return res.status(200).json({
         error: false,
