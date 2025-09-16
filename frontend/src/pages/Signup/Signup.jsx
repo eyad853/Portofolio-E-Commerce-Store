@@ -51,6 +51,34 @@ const Signup = () => {
         }
     };
 
+    const handleNormalSignup = async (e) => {
+        e.preventDefault();
+        setLoadings(true);
+
+        try {
+            const formData = new FormData();
+            formData.append("username", username);
+            formData.append("email", email);
+            formData.append("password", password);
+            if (file) formData.append("avatar", file);
+        
+            const res = await axios.post(
+            `${import.meta.env.VITE_BACKEND_URL}/signup`,
+            formData,
+            { withCredentials: true }
+            );
+
+            if (!res.data.error) {
+                navigate("/home");
+            }
+        } catch (error) {
+            console.error("Signup failed:", error);
+            alert("Something went wrong");
+        } finally {
+            setLoadings(false);
+        }
+};
+
     return (
         <div className='w-screen p-4 lg:p-10 text-white min-h-screen flex justify-center items-center'>
             <div className='h-auto lg:h-125 shadow-2xl text-black border border-gray-300 p-4 lg:p-10 rounded-xl w-[90vw] lg:w-200 flex flex-col'>
@@ -84,8 +112,7 @@ const Signup = () => {
                     {/* IMPORTANT: This form will submit directly to the backend.
                         The `encType` is crucial for file uploads. */}
                     <form
-                        action={`${import.meta.env.VITE_BACKEND_URL}/signup`} // Ensure /api prefix here
-                        method="POST"
+                        onSubmit={handleNormalSignup}
                         encType="multipart/form-data" // Crucial for file uploads
                         className='w-full flex flex-col lg:flex-row flex-1'
                         // No onSubmit handler that calls e.preventDefault()
