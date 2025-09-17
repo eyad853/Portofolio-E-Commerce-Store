@@ -6,15 +6,17 @@ import bcrypt from "bcrypt";
 import categoryModel from "../schemas/categorySchema.js";
 import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 import Product from "../schemas/ProductSchema.js";
 import onlineUsers from "../index.js";
 import cartModel from "../schemas/CartSchema.js";
 import ordersModel from "../schemas/orders.js";
 import { error } from "console";
 import AdminSettings from "../schemas/Settings.js";
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.log(__dirname);
 
 const saltRounds = 10; // Define saltRounds for bcrypt hashing
 
