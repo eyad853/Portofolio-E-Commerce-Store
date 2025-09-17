@@ -22,6 +22,7 @@ import analyticsService from './analyticsService'
 import Maintenance from './pages/Maintenance/Maintenance'
 Modal.setAppElement("#root")
 const socket = io(import.meta.env.VITE_BACKEND_URL ,  {
+  transports: ['websocket'],
   withCredentials: true
 })
 
