@@ -36,7 +36,7 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
         if (data?._id === id) {
             setProduct(prev => ({
                 ...prev,
-                reviews: [...prev?.reviews, data?.newReview]
+                reviews: data.reviews
             }));
         }
     };

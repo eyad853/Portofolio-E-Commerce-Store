@@ -6,7 +6,7 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
-const Signup = () => {
+const Signup = ({setTrigger}) => {
     const navigate = useNavigate();
     const [username , setUsername]=useState('')
     const [email, setEmail] = useState("");
@@ -69,6 +69,7 @@ const Signup = () => {
             );
 
             if (!res.data.error) {
+                setTrigger(prev=>prev+1)
                 navigate("/home");
             }
         } catch (error) {

@@ -47,6 +47,7 @@ const App = () => {
   const [loadingUser, setLoadingUser] = useState(true);
   const [loadingAnalytics, setLoadingAnalytics] = useState(true);
   const [error, setError] = useState(null);
+  const [trigger , setTrigger]=useState(0)
     
 
 const fetchAllProducts = async () => {
@@ -82,7 +83,7 @@ useEffect(() => {
             console.error('Error fetching user:', error);
         });
         setLoadingUser(false)
-}, []);
+}, [trigger]);
 
 useEffect(()=>{
   socket.emit('user-connected', customerId);
@@ -205,8 +206,8 @@ const [overview, setOverview] = useState(null);
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Signup/>} />
-        <Route path='/login' element={<Login/>} />
+        <Route path='/' element={<Signup setTrigger={setTrigger}/>} />
+        <Route path='/login' element={<Login setTrigger={setTrigger}/>} />
         <Route path='/home' element={
           loadingProducts?
         (
