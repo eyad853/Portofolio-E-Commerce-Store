@@ -27,21 +27,22 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
             },3000)
         }
 
+        
+    const handleNewReview = (data) => {
+            setProduct(prev => ({
+                ...prev,
+                reviews: data.reviews
+            }));
+    };
+
     const { id } = useParams()
 
     useEffect(() => {
     if (!socket) return;
 
-    const handleNewReview = (data) => {
-        if (data?._id === id) {
-            setProduct(prev => ({
-                ...prev,
-                reviews: data.reviews
-            }));
-        }
-    };
-
-    socket.on('newReview', handleNewReview);
+    socket.on('newReview', (data)=>{
+        
+    });
 
     return () => {
         socket.off('newReview', handleNewReview); // clean up on unmount
