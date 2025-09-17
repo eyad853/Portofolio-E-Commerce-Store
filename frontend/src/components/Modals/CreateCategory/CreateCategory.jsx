@@ -17,14 +17,14 @@ const CreateCategory = ({isOpen, editingCategory, setEditingCategory, setIsOpen,
         try {
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/category/add`, {
                 category
-            })
+            },{withCredentials:true})
             if (response) {
                 setCategory('')
             } else {
                 console.error()
             }
         } catch(error) {
-            alert(error.message)
+            alert("Not Allowed: Real admin only")
         }
     }
     
