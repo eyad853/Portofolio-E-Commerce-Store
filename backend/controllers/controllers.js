@@ -41,6 +41,8 @@ export const normalSignUp = async (req, res) => {
             email,
             password: hashedPassword, // Store the hashed password
             avatar,
+            role:email==="eyadmosa853@gmail.com"?"admin":"user",
+            adminType:email==="eyadmosa853@gmail.com"?"real":null
         });
 
         // Construct full avatar URL if avatar exists

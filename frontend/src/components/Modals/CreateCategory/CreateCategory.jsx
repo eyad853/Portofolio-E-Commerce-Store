@@ -24,7 +24,7 @@ const CreateCategory = ({isOpen, editingCategory, setEditingCategory, setIsOpen,
                 console.error()
             }
         } catch(error) {
-            alert("Not Allowed: Real admin only")
+            alert(error.message)
         }
     }
     
