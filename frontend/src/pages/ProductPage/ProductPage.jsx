@@ -40,9 +40,7 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
     useEffect(() => {
     if (!socket) return;
 
-    socket.on('newReview', (data)=>{
-        
-    });
+    socket.on('newReview', handleNewReview);
 
     return () => {
         socket.off('newReview', handleNewReview); // clean up on unmount
