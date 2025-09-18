@@ -26,12 +26,25 @@ const socket = io(import.meta.env.VITE_BACKEND_URL ,  {
   withCredentials: true
 })
 
-socket.on('connect',()=>{
-  console.log('user has been connected');
-})
-socket.on('disconnect',()=>{
-  console.log('user has been disconnected');
-})
+useEffect(() => {
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+
+    socket.on('connect_error', (error) => {
+      console.error('Connection error:', error);
+    });
+
+    socket.on('disconnect', (reason) => {
+      console.log('Disconnected from server:', reason);
+    });
+
+    return () => {
+      socket.off('connect');
+      socket.off('connect_error');
+      socket.off('disconnect');
+    };
+  }, []);
 
 const App = () => {
   const [isOpen , setIsOpen]=useState(false)
