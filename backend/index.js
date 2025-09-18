@@ -152,7 +152,7 @@ mongoose.connection.on('error', () => {
 
 
 const PORT=8000
-server.listen(PORT ,'0.0.0.0', ()=>{
+server.listen(PORT , ()=>{
     console.log("server started");
     
 })
