@@ -16,16 +16,11 @@ import Orders from './pages/DashboardLayout/Orders'
 import Customers from './pages/DashboardLayout/Customers'
 import Analytics from './pages/DashboardLayout/Analytics'
 import Settings from './pages/DashboardLayout/Settings'
-import { io } from 'socket.io-client';
+import socket from './socket'
 import UserOrders from './pages/UserOrders/UserOrders'
 import analyticsService from './analyticsService'
 import Maintenance from './pages/Maintenance/Maintenance'
 Modal.setAppElement("#root")
-const socket = io(import.meta.env.VITE_BACKEND_URL ,  {
-  withCredentials: true,
-  reconnectionAttempts: 5,
-  reconnectionDelay: 1000
-})
 
 const App = () => {
   const [isOpen , setIsOpen]=useState(false)
