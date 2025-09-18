@@ -15,6 +15,7 @@ import User from "./schemas/UserSchema.js"
 import http from 'http'
 import { Server } from "socket.io";
 import Stripe from "stripe"
+import sharedsession from "express-socket.io-session";
 
 const app = express()
 const server = http.createServer(app);
@@ -62,6 +63,10 @@ app.use(sessionMiddleware)
 
 app.use(passport.initialize())
 app.use(passport.session())
+
+io.use(sharedsession(sessionMiddleware, {
+  autoSave: true
+})); // for Socket.IO
 
 io.on('connection', (socket) => {
 
