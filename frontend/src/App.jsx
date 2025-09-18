@@ -27,7 +27,23 @@ const socket = io(import.meta.env.VITE_BACKEND_URL ,  {
   reconnectionDelay: 1000
 })
 
-useEffect(() => {
+const App = () => {
+  const [isOpen , setIsOpen]=useState(false)
+  const [isCartOpen , setIsCartOpen]=useState(false)
+  const [isProductPageOpen , setIsProductPageOpen]=useState(false)
+  const [user ,setUser]=useState(null)
+  const [customerId , setCustomerId]=useState('')
+  const [isReviewModalOpen , setIsReviewModalOpen]=useState(false)
+  const [darkMode , setDarkMode]=useState(false)
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [loadingSettings, setLoadingSettings] = useState(true);
+  const [loadingUser, setLoadingUser] = useState(true);
+  const [loadingAnalytics, setLoadingAnalytics] = useState(true);
+  const [error, setError] = useState(null);
+  const [trigger , setTrigger]=useState(0)
+
+  useEffect(() => {
     socket.on('connect', () => {
       console.log('Connected to server');
     });
@@ -46,22 +62,6 @@ useEffect(() => {
       socket.off('disconnect');
     };
   }, []);
-
-const App = () => {
-  const [isOpen , setIsOpen]=useState(false)
-  const [isCartOpen , setIsCartOpen]=useState(false)
-  const [isProductPageOpen , setIsProductPageOpen]=useState(false)
-  const [user ,setUser]=useState(null)
-  const [customerId , setCustomerId]=useState('')
-  const [isReviewModalOpen , setIsReviewModalOpen]=useState(false)
-  const [darkMode , setDarkMode]=useState(false)
-  const [products, setProducts] = useState([]);
-  const [loadingProducts, setLoadingProducts] = useState(true);
-  const [loadingSettings, setLoadingSettings] = useState(true);
-  const [loadingUser, setLoadingUser] = useState(true);
-  const [loadingAnalytics, setLoadingAnalytics] = useState(true);
-  const [error, setError] = useState(null);
-  const [trigger , setTrigger]=useState(0)
     
 
 const fetchAllProducts = async () => {
