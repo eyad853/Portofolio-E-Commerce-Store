@@ -22,6 +22,8 @@ const server = http.createServer(app);
 const io = new Server(server , {
   cors:{
     origin: process.env.frontendURL,
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
     credentials: true
   }
 })
@@ -32,7 +34,10 @@ const stripe = new Stripe(process.env.Secret_API)
 const onlineUsers = new Map(); // key: userId, value: socket.id
 export default onlineUsers
 
-
+app.use(cors({
+    origin:process.env.frontendURL,
+    credentials: true
+}))
 
 // Make sure uploads directory exists - modern approach
 const uploadsDir = path.join(process.cwd(), "uploads" );
@@ -88,10 +93,7 @@ io.on('connection', (socket) => {
   });
 });
 
-app.use(cors({
-    origin:process.env.frontendURL,
-    credentials: true
-}))
+
 
 passport.serializeUser((user, done) => {
     done(null, user._id); // For local users, storing the _id in session
