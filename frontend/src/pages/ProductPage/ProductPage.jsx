@@ -357,8 +357,7 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
                         {/* Add to Cart Button */}
                         <button
                             onClick={() => {
-                                handleShow()
-                                setShowModal(true)}}
+                                handleShow()}}
                             disabled={!product.inStock}
                             className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
                                 product.inStock
