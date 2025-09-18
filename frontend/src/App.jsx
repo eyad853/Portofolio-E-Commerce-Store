@@ -22,8 +22,9 @@ import analyticsService from './analyticsService'
 import Maintenance from './pages/Maintenance/Maintenance'
 Modal.setAppElement("#root")
 const socket = io(import.meta.env.VITE_BACKEND_URL ,  {
-  transports: ['websocket'],
-  withCredentials: true
+  withCredentials: true,
+  reconnectionAttempts: 5,
+  reconnectionDelay: 1000
 })
 
 useEffect(() => {
