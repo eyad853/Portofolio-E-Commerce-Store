@@ -74,6 +74,8 @@ io.use(sharedsession(sessionMiddleware, {
 })); // for Socket.IO
 
 io.on('connection', (socket) => {
+  console.log('Socket connected!', socket.id);
+  console.log('Headers:', socket.handshake.headers);
 
   // Expect user to send their ID after connecting
   socket.on('user-connected', (userId) => {
