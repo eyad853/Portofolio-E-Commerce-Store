@@ -117,7 +117,7 @@ router.get("/getSalesDistribution", getSalesDistribution);
 router.get("/getMonthlyOverview", getMonthlyOverview);
 
 // orders
-router.post(`/order/create`,isRealAdmin, createAnOrder)
+router.post(`/order/create`, createAnOrder)
 router.get(`/order/getUserOrders`, getUserOrders)
 router.get(`/order/getAll`, getAllOrders)
 router.delete(`/order/cancel/:id`,isRealAdmin, getAllOrders)

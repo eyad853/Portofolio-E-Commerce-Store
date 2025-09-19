@@ -646,6 +646,10 @@ export const updateProductReview = async (req, res) => {
   const { productId, review } = req.params;
   const {comment}=req.body
 
+if (!productId) {
+  return res.status(400).json({ error: true, message: "ProductId is required" });
+}
+  
   try {
     const product = await Product.findById(productId);
 
@@ -728,7 +732,9 @@ export const getCart = async (req, res) => {
 
 
   try {
-    const cart = await cartModel.findOne({ userId }).populate('items.productId');
+    const cart = await cartModel
+  .findOne({ userId })
+  .populate('items.productId');
     
     res.status(200).json(cart);
   } catch (err) {
