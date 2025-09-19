@@ -315,7 +315,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol,setDashboardErro
         setProducts(products.filter(product => product._id !== productId));
       }
     } catch (error) {
-      console.log(error);
+      setDashboardError(error.response.data.message);
     }
   }
 

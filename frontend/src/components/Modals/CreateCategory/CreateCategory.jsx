@@ -18,11 +18,9 @@ const CreateCategory = ({isOpen, editingCategory, setEditingCategory, setIsOpen,
             const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/category/add`, {
                 category
             },{withCredentials:true})
-            if (response) {
+            if (response.data && response.data.newCategory) {
+                setCategories(prev => [...prev, response.data.newCategory]);
                 setCategory('')
-                setCategories([...categories, response.data.newCategory])
-            } else {
-                console.error()
             }
         } catch(error) {
             setDashboardError(error.response.data.message);
