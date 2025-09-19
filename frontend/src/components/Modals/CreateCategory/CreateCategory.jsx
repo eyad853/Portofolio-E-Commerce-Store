@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import axios from 'axios'
 
-const CreateCategory = ({isOpen, editingCategory, setEditingCategory, setIsOpen, categories, setCategories}) => {
+const CreateCategory = ({isOpen, editingCategory, setEditingCategory, setIsOpen, categories, setCategories,setDashboardError}) => {
     const [category, setCategory] = useState('')
     
     useEffect(() => {
@@ -20,11 +20,12 @@ const CreateCategory = ({isOpen, editingCategory, setEditingCategory, setIsOpen,
             },{withCredentials:true})
             if (response) {
                 setCategory('')
+                setCategories([...categories, response.data.newCategory])
             } else {
                 console.error()
             }
         } catch(error) {
-            alert("Not Allowed: Real admin only")
+            setDashboardError(error.response.data.message);
         }
     }
     
@@ -41,7 +42,7 @@ const CreateCategory = ({isOpen, editingCategory, setEditingCategory, setIsOpen,
                 setEditingCategory(null);
             }
         } catch(err) {
-            console.log(err);
+            setDashboardError(error.response.data.message);
         }
     }
     
@@ -73,7 +74,6 @@ const CreateCategory = ({isOpen, editingCategory, setEditingCategory, setIsOpen,
                             updateCategory(editingCategory._id)
                         } else {
                             handleAddCategory()
-                            setCategories([...categories, {category}])
                         }
                         setIsOpen(false)
                     }}

@@ -3,7 +3,7 @@ import CreateCategory from '../../components/Modals/CreateCategory/CreateCategor
 import axios from 'axios'
 import { FaPen, FaTrash } from "react-icons/fa6";
 
-const Categories = ({ darkMode }) => {
+const Categories = ({ darkMode,setDashboardError }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [editingCategory, setEditingCategory] = useState(null);
@@ -45,6 +45,7 @@ const Categories = ({ darkMode }) => {
           console.error('Failed to delete category');
         }
       } catch (err) {
+        setDashboardError(error.response.data.message);
         console.log(err);
         setError(true);
       }
@@ -177,6 +178,7 @@ const Categories = ({ darkMode }) => {
         isOpen={isOpen} 
         setIsOpen={setIsOpen}
         darkMode={darkMode}
+        setDashboardError={setDashboardError}
       />
     </div>
   )

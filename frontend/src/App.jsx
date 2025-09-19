@@ -37,15 +37,16 @@ const App = () => {
   const [loadingAnalytics, setLoadingAnalytics] = useState(true);
   const [error, setError] = useState(null);
   const [trigger , setTrigger]=useState(0)
+  const [dashboardError , setDashboardError]=useState('')
 
   useEffect(() => {
     socket.on('connect', () => {
       console.log('Connected to server');
     });
 
-    socket.on('connect_error', (error) => {
-      console.error('Connection error:', error);
-    });
+    socket.on("connect_error", (err) => {
+  console.log(`connect_error due to ${err.message}`);
+});
 
     socket.on('disconnect', (reason) => {
       console.log('Disconnected from server:', reason);
@@ -94,13 +95,21 @@ useEffect(() => {
         setLoadingUser(false)
 }, [trigger]);
 
-useEffect(()=>{
-  socket.emit('user-connected', customerId);
+useEffect(() => {
+  if (!customerId) return;
 
-   return () => {
-      socket.disconnect();
-    };
-},[customerId])
+  const handleConnect = () => {
+    console.log('Socket connected!');
+    socket.emit('user-connected', customerId);
+  };
+
+  socket.on('connect', handleConnect);
+
+  return () => {
+    socket.off('connect', handleConnect);
+    // do NOT disconnect socket here unless you really want to
+  };
+}, [customerId]);
 
 const handleAddToCart = async(product_id)=>{
     const item = {
@@ -273,6 +282,8 @@ const [overview, setOverview] = useState(null);
         user={user}
         storeName={storeName}
         storeLogo={storeLogo}
+        dashboardError={dashboardError}
+        setDashboardError={setDashboardError}
         />}>
           <Route index element={
             loadingAnalytics?
@@ -294,10 +305,12 @@ const [overview, setOverview] = useState(null);
           darkMode={darkMode} 
           currencySymbol={currencySymbol}
           loadingProducts={loadingProducts}
+          setDashboardError={setDashboardError}
           /> }/>
 
           <Route path='/admin/dashboard/Categories' element={<Categories 
           darkMode={darkMode} 
+          setDashboardError={setDashboardError}
           /> }/>
 
           <Route path='/admin/dashboard/Orders' element={<Orders 
@@ -340,12 +353,14 @@ const [overview, setOverview] = useState(null);
           setStoreLogo={setStoreLogo}
           setMaintenanceMode={setMaintenanceMode}
           setCurrencySymbol={setCurrencySymbol}
-         
+          setDashboardError={setDashboardError}
           storeName={storeName}
           storeLogo={storeLogo}
           maintenanceMode={maintenanceMode}
           currencySymbol={currencySymbol}
           fetchSettings={fetchSettings}
+          loadingSettings={loadingSettings}
+          setLoadingSettings={setLoadingSettings}
           />) }/>
 
         </Route>

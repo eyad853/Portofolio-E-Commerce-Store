@@ -5,7 +5,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 
-const D_Products = ({ loadingProducts, darkMode, currencySymbol }) => {
+const D_Products = ({ loadingProducts, darkMode, currencySymbol,setDashboardError }) => {
   const [showProducts, setShowProducts] = useState(true);
   const [isCategoryListOpen, setIsCategoryListOpen] = useState(false);
   const [isQualityListOpen, setIsQualityListOpen] = useState(false);
@@ -211,7 +211,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol }) => {
         }
       } catch (error) {
         console.error("Error with product:", error);
-        alert("Not Allowed: Real admin only")
+        setDashboardError(error.response.data.message);
       } finally {
         setIsSubmitting(false);
       }

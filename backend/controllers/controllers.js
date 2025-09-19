@@ -211,7 +211,8 @@ export const AddCategory = async(req ,res)=>{
 
         return res.status(200).json({
             error:false,
-            message:'category has been successfully created'
+            message:'category has been successfully created',
+            newCategory
         })
 
     }catch(error){

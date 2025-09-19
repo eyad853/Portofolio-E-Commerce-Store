@@ -135,11 +135,6 @@ const Analytics = ({ overview, ordersPerDay, topSellingProducts, salesDistributi
                 <option value="90d">Last 90 days</option>
                 <option value="1y">Last year</option>
               </select>
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
-                <Calendar className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Export Report</span>
-                <span className="sm:hidden">Export</span>
-              </button>
             </div>
           </div>
         </div>

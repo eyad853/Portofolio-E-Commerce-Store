@@ -42,6 +42,7 @@ const Signup = ({setTrigger}) => {
         try {
             const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/tryAsFakeAdmin`,{} , {withCredentials:true});
             if(!res.data.error){
+                setTrigger(prev=>prev+1)
                 navigate('/home')
             }
             setLoadings(false)

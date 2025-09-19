@@ -16,13 +16,14 @@ import http from 'http'
 import { Server } from "socket.io";
 import Stripe from "stripe"
 import sharedsession from "express-socket.io-session";
+import { fileURLToPath } from 'url'
 
 const app = express()
 const server = http.createServer(app);
 const io = new Server(server , {
   cors:{
     origin: process.env.frontendURL,
-     methods: ["GET", "POST", "PUT", "DELETE" , "PATCH"],
+     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true
   }
@@ -40,7 +41,9 @@ app.use(cors({
 }))
 
 // Make sure uploads directory exists - modern approach
-const uploadsDir = path.join(process.cwd(), "uploads" );
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const uploadsDir = path.join(__dirname, "uploads");
 
 // Make uploads directory accessible
 app.use('/uploads', express.static(uploadsDir));
@@ -58,8 +61,8 @@ const sessionMiddleware = session({
   }),
   cookie: {
     httpOnly: true,
-    secure: true,   // use true if your backend is running on HTTPS
-    sameSite: "none"
+    secure: false,   // use true if your backend is running on HTTPS
+    sameSite: "lax"
   }
 });
 
@@ -73,10 +76,10 @@ io.use(sharedsession(sessionMiddleware, {
   autoSave: true
 })); // for Socket.IO
 
-io.on('connection', (socket) => {
-  console.log('Socket connected!', socket.id);
-  console.log('Headers:', socket.handshake.headers);
 
+
+io.on('connection', (socket) => {
+  console.log('server connected with sockers');
   // Expect user to send their ID after connecting
   socket.on('user-connected', (userId) => {
     onlineUsers.set(userId, socket.id);
@@ -134,30 +137,22 @@ app.post('/create-payment-intent', async (req, res) => {
 });
 
 
-const handleConnect = async ()=>{
-    await mongoose.connect(process.env.DB)
-    console.log("db has been connected");
-}
-handleConnect()
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.DB);
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("MongoDB connection failed:", err.message);
+    setTimeout(connectDB, 5000); // retry safely
+  }
+};
 
 mongoose.connection.on('disconnected', () => {
-  console.log('Mongoose disconnected from MongoDB');
-  try{
-    handleConnect()
-  }catch(err){
-    console.log('failed ageain');
-    setTimeout(()=>{handleConnect()},5000)
-  }
+  console.log("MongoDB disconnected, retrying...");
+  connectDB(); // retry only DB, do NOT touch socket logic
 });
-mongoose.connection.on('error', () => {
-  console.log('Mongoose disconnected from MongoDB');
-  try{
-    handleConnect()
-  }catch(err){
-    console.log('failed ageain');
-    setTimeout(()=>{handleConnect()},5000)
-  }
-});
+
+connectDB();
 
 
 const PORT=8000

@@ -14,11 +14,11 @@ const SettingsPage = ({
   setDarkMode,
   setMaintenanceMode,
   setCurrencySymbol,
-  loading,
-  setLoading,
+  loadingSettings,
+  setLoadingSettings,
   fetchSettings,
   error,
-  setError
+  setDashboardError
 }) => {
   const [storeLogoPreview, setStoreLogoPreview] = useState(
     storeLogo || 'https://placehold.co/100x100/A0AEC0/FFFFFF?text=Logo'
@@ -66,10 +66,9 @@ const SettingsPage = ({
    * Save settings to backend
    */
   const saveSettings = async () => {
-    if (loading) return; // Prevent multiple concurrent saves
+    if (loadingSettings) return; // Prevent multiple concurrent saves
     
-    setLoading(true);
-    setError(null);
+    setLoadingSettings(true);
 
     const formData = new FormData()
     formData.append('storeName', storeName)
@@ -86,10 +85,10 @@ const SettingsPage = ({
       
       showSuccessMessage('Settings saved successfully!');
     } catch (err) {
-      setError('Failed to save settings. Please try again.');
+      setDashboardError(error?.response?.data?.message);
       console.error('Settings save error:', err);
     } finally {
-      setLoading(false);
+      setLoadingSettings(false);
     }
   };
 
@@ -101,18 +100,15 @@ const SettingsPage = ({
     if (file) {
       // Check file size (max 2MB)
       if (file.size > 2 * 1024 * 1024) {
-        setError('Logo file size must be less than 2MB');
         return;
       }
       
       // Check file type
       if (!file.type.startsWith('image/')) {
-        setError('Please select a valid image file');
         return;
       }
       
       setStoreLogo(file);
-      setError(null);
     }
   };
 
@@ -178,14 +174,14 @@ const SettingsPage = ({
           
           <button
             onClick={saveSettings}
-            disabled={loading}
+            disabled={loadingSettings}
             className={`px-4 sm:px-6 py-2 sm:py-3 font-semibold rounded-lg shadow-md transition-all duration-200 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 text-sm sm:text-base whitespace-nowrap ${
-              loading 
+              loadingSettings 
                 ? 'bg-gray-400 cursor-not-allowed text-gray-200' 
                 : 'bg-blue-600 hover:bg-blue-700 text-white hover:scale-105'
             }`}
           >
-            {loading ? 'Saving...' : 'Save Changes'}
+            {loadingSettings ? 'Saving...' : 'Save Changes'}
           </button>
         </div>
 
