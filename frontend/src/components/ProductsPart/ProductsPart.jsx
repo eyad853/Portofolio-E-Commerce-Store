@@ -102,7 +102,7 @@ const ProductsPart = ({currencySymbol,products ,handleShow ,darkMode ,updateProd
                       handleShow()
                       handleAddToCart(product._id)
                     }}
-                    className={`w-full h-full ${darkMode?"bg-[#3B82F6] text-[#FFFFFF] hover:bg-[#2563EB]":"bg-gradient-to-r from-blue-500 to-blue-600"}  rounded-xl transform hover:scale-105 transition-all duration-300 font-semibold flex justify-center items-center text-white text-sm md:text-base`}>Add To Cart</div>
+                    className={`w-full h-full ${darkMode?"bg-[#3B82F6] text-[#FFFFFF] hover:bg-[#2563EB]":"bg-gradient-to-r from-blue-500 to-blue-600"}  rounded-xl transform hover:scale-105 transition-all duration-300 z-10 font-semibold flex justify-center items-center text-white text-sm md:text-base`}>Add To Cart</div>
                   </div>
                 </div>
 

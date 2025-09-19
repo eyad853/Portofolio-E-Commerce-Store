@@ -6,7 +6,7 @@ import ReviewModal from '../../components/Modals/ReviewModal/ReviewModal'
 import { FaUser } from 'react-icons/fa'
 import AddToCartMessage from '../../components/AddToCartMessage/AddToCartMessage'
 
-const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewModalOpen, setIsReviewModalOpen, darkMode }) => {
+const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewModalOpen, setIsReviewModalOpen, darkMode ,handleAddToCart}) => {
     const [product, setProduct] = useState({})
     const [showingImage, setShowingImage] = useState('')
     const [purchaseQuantity, setPurchaseQuantity] = useState(1) // eslint-disable-line no-unused-vars
@@ -357,6 +357,7 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
                         {/* Add to Cart Button */}
                         <button
                             onClick={() => {
+                                handleAddToCart()
                                 handleShow()}}
                             disabled={!product.inStock}
                             className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${

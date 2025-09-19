@@ -5,7 +5,7 @@ import { FaTrash, FaUser, FaPlus, FaMinus, FaShoppingBag } from "react-icons/fa"
 import Nav from '../../components/Nav/Nav';
 import PaymentModal from '../../components/Modals/PaymentModal/PaymentModal';
 
-const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,storeName,storeLogo}) => {
+const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,storeName,storeLogo,}) => {
   const [cart, setCart] = useState({});
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);

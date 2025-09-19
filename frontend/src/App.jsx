@@ -275,6 +275,7 @@ const [overview, setOverview] = useState(null);
         darkMode={darkMode} 
         user={user}
         socket={socket}
+        handleAddToCart={handleAddToCart}
         />}/>
 
         <Route path='/admin/dashboard' element={<DashboardLayOut 
