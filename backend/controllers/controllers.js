@@ -642,7 +642,7 @@ export const updateStock = async (req, res) => {
 };
 
 export const updateProductReview = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req?.user?.id;
   const { productId, review } = req.params;
   const {comment}=req.body
 
@@ -696,7 +696,7 @@ export const updateProductReview = async (req, res) => {
 // cart
 export const addToCart = async (req, res) => {
   const { productId, quantity } = req.body;
-  const userId = req.user.id; // assuming user is authenticated
+  const userId = req?.user?.id; // assuming user is authenticated
 
   try {
     let cart = await cartModel.findOne({ userId });
@@ -724,19 +724,20 @@ export const addToCart = async (req, res) => {
 
 // Get user cart
 export const getCart = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req?.user?.id;
 
 
   try {
     const cart = await cartModel.findOne({ userId }).populate('items.productId');
-    res.status(200).json(cart || { items: [] });
+    
+    res.status(200).json(cart);
   } catch (err) {
     res.status(500).json({ message: 'Error fetching cart', error: err.message });
   }
 };
 
 export const increaseQuantity = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req?.user?.id;
   const { productId } = req.params;
 
   try {
@@ -760,7 +761,7 @@ export const increaseQuantity = async (req, res) => {
 };
 
 export const decreaseQuantity = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req?.user?.id;
   const { productId } = req.params;
 
   try {
@@ -789,7 +790,7 @@ export const decreaseQuantity = async (req, res) => {
 };
 
 export const removeFromCart = async (req, res) => {
-  const userId = req.user.id; // assuming user is authenticated
+  const userId = req?.user?.id; // assuming user is authenticated
   const { id } = req.params;
 
   try {
@@ -813,7 +814,7 @@ export const removeFromCart = async (req, res) => {
 };
 
 export const clearUserCart = async (req, res) => {
-  const userId = req.user.id
+  const userId = req?.user?.id
 
   try {
     // Find the cart for this user and set items to empty array
@@ -836,7 +837,7 @@ export const clearUserCart = async (req, res) => {
 // orders
 export const createAnOrder = async(req , res)=>{
   const {orderItems,shippingAddress,taxPrice,shippingPrice,totalPrice}=req.body
-  const user = req.user.id
+  const user = req?.user?.id
   try{
     const newOrder = new ordersModel({
       user,
@@ -862,8 +863,8 @@ export const createAnOrder = async(req , res)=>{
 }
 
 export const getUserOrders = async(req , res)=>{
-  const userId = req.user.id
-  console.log(req.user.id);
+  const userId = req?.user?.id
+  console.log(req?.user?.id);
   try{
     const orders = await ordersModel.find({user:userId}).populate('user').populate('orderItems.product');
     if(!orders){
@@ -1058,7 +1059,7 @@ export const getMonthlyOverview = async (req, res) => {
 };
 
 export const upadteUserLocation = async(req , res)=>{
-  const userId = req.user.id
+  const userId = req?.user?.id
   const {location}=req.body
   try{
     const user = await User.findOne({_id:userId})
