@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Twitter, Facebook, Linkedin, Instagram, Star } from 'lucide-react';
+import {Link} from 'react-router-dom'
 
 const ThirdPart = ({handleShow,currencySymbol,darkMode, products , setProducts  ,handleAddToCart}) => {
     const [recommendedProducts, setRecommendedProducts] = useState([]);
@@ -56,13 +57,13 @@ const ThirdPart = ({handleShow,currencySymbol,darkMode, products , setProducts  
                 </h1>
                 
                 {recommendedProducts.length > 0 ? (
-                    <div className="w-full px-1 md:px-3 py-3 flex overflow-x-auto hide-scrollbar gap-4 md:gap-10 mt-8">
+                    <div className="w-full h-120 px-1 md:px-3 py-3 flex overflow-x-auto hide-scrollbar gap-4 md:gap-10 mt-8">
                         {recommendedProducts.map(product => (
                             <div 
-                                            key={product._id || product.id} 
-                                            className={`border ${darkMode?"bg-[#1E1E1E]":""} min-w-72 md:min-w-80 relative transform hover:scale-105 transition-all duration-300 cursor-pointer rounded-xl border-neutral-300`}
+                            key={product._id || product.id} 
+                            className={`border ${darkMode?"bg-[#1E1E1E]":""}  min-w-72 md:w-80 relative transform hover:scale-105 transition-all duration-300 cursor-pointer rounded-xl border-neutral-300`}
                                           >
-                                            <div onClick={() => window.location.href = `/product/${product._id}`} className='absolute inset-0 cursor-pointer'></div>
+                                            <Link to={`/product/${product._id}`} className='absolute inset-0 z-10'></Link>
                                             {/* mainImage  */}
                                             <div className="h-3/5 bg-neutral-200 flex justify-center items-center">
                                               <img 
@@ -89,13 +90,15 @@ const ThirdPart = ({handleShow,currencySymbol,darkMode, products , setProducts  
                                                 </div>
                                               </div>
                             
-                                              <div className="w-full px-3 h-10 mt-5">
+                                              <div className="w-full relative overflow-visible px-3 h-10 mt-5">
                                                 <div 
-                                                onClick={()=>{
+                                                onClick={(e)=>{
+                                                    e.preventDefault(); // stop Link navigation
+                                                    e.stopPropagation(); // stop bubbling
                                                     handleShow()
-                                                  handleAddToCart(product._id)
+                                                    handleAddToCart(product._id)
                                                 }}
-                                                className={`w-full h-full ${darkMode?"bg-[#3B82F6] text-[#FFFFFF] hover:bg-[#2563EB]":"bg-gradient-to-r from-blue-500 to-blue-600"}  rounded-xl transform hover:scale-105 z-10 transition-all duration-300 font-semibold flex justify-center items-center text-white`}>Add To Cart</div>
+                                                className={`w-full h-full relative overflow-visible ${darkMode?"bg-[#3B82F6] text-[#FFFFFF] hover:bg-[#2563EB]":"bg-gradient-to-r from-blue-500 to-blue-600"}  rounded-xl transform hover:scale-105 z-20 transition-all duration-300 font-semibold flex justify-center items-center text-white`}>Add To Cart</div>
                                               </div>
                                             </div>
                             

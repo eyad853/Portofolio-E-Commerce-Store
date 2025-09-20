@@ -69,7 +69,7 @@ const ProductsPart = ({currencySymbol,products ,handleShow ,darkMode ,updateProd
                 key={product._id || product.id} 
                 className={`border ${darkMode?"bg-[#1E1E1E]":""} relative transform hover:scale-105 transition-all duration-300 cursor-pointer rounded-xl border-neutral-300`}
               >
-                <Link to={`/product/${product._id}`} className='absolute inset-0'></Link>
+                <Link to={`/product/${product._id}`} className='absolute inset-0 z-10'></Link>
                 {/* mainImage  */}
                 <div className="h-48 md:h-56 lg:h-64 bg-neutral-200 flex justify-center items-center">
                   <img 
@@ -98,11 +98,13 @@ const ProductsPart = ({currencySymbol,products ,handleShow ,darkMode ,updateProd
 
                   <div className="w-full px-3 h-9 md:h-10 mt-3 md:mt-5">
                     <div 
-                    onClick={()=>{
+                    onClick={(e)=>{
+                       e.preventDefault(); // stop Link navigation
+                      e.stopPropagation(); // stop bubbling
                       handleShow()
                       handleAddToCart(product._id)
                     }}
-                    className={`w-full h-full ${darkMode?"bg-[#3B82F6] text-[#FFFFFF] hover:bg-[#2563EB]":"bg-gradient-to-r from-blue-500 to-blue-600"}  rounded-xl transform hover:scale-105 transition-all duration-300 z-10 font-semibold flex justify-center items-center text-white text-sm md:text-base`}>Add To Cart</div>
+                    className={`w-full relative overflow-visible h-full z-20 ${darkMode?"bg-[#3B82F6] text-[#FFFFFF] hover:bg-[#2563EB]":"bg-gradient-to-r from-blue-500 to-blue-600"}  rounded-xl transform hover:scale-105 transition-all duration-300 z-10 font-semibold flex justify-center items-center text-white text-sm md:text-base`}>Add To Cart</div>
                   </div>
                 </div>
 

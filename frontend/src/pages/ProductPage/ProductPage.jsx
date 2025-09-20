@@ -360,7 +360,7 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
                                 handleAddToCart(product._id)
                                 handleShow()}}
                             disabled={!product.inStock}
-                            className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
+                            className={`w-full  py-3 px-6 rounded-lg font-semibold transition-colors ${
                                 product.inStock
                                     ? 'bg-blue-600 hover:bg-blue-700 text-white'
                                     : 'bg-gray-400 text-gray-200 cursor-not-allowed'
