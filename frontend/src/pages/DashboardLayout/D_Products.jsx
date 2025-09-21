@@ -387,7 +387,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol,setDashboardErro
                             handleUpdateClick(product);
                           }}
                           className="w-1/2 h-6 sm:h-8 z-20 mt-2.5 font-semibold rounded-md cursor-pointer flex justify-center items-center bg-purple-600 hover:bg-purple-700 text-white transition-colors duration-200 text-xs sm:text-sm">
-                          Update
+                          edit
                         </div>
                         <div 
                           onClick={(e) => {
