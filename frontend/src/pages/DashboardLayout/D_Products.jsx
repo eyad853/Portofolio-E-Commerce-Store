@@ -416,7 +416,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol,setDashboardErro
               className={`w-6 h-6 mt-0.5 ${bgSecondary} cursor-pointer rounded-md flex justify-center items-center border ${borderColor} ${textPrimary}`}>
               <FaArrowLeftLong/>
             </div>
-            <div className={`text-xl sm:text-3xl font-bold ${textPrimary}`}>{isUpdating ? 'Update Product' : 'New Product'}</div>
+            <div className={`text-xl sm:text-3xl font-bold ${textPrimary}`}>{isUpdating ? 'Edit Product' : 'New Product'}</div>
           </div>
 
           {/* Product creation/update form */}
