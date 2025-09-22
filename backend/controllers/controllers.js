@@ -677,10 +677,10 @@ if (!productId) {
     }
 
     await product.save();
-    await product.populate("reviews.user")
+    const populatedProduct = await product.populate("reviews.user")
 
     const io = req.app.get('io')
-    io.emit('newReview' , product)
+    io.emit('newReview' , populatedProduct)
 
     return res.status(200).json({
       success: true,
