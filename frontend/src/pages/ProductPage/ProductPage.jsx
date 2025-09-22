@@ -381,9 +381,9 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
                                         <div className='flex items-start'>
                                             <div className='flex-shrink-0 mr-4'>
                                                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${darkMode ? "bg-gray-600" : "bg-gray-300"}`}>
-                                                    {review.user&&review.user.avatar?(
+                                                    {review?.user&&review?.user?.avatar?(
                                                         <div className='w-full h-full rounded-full'>
-                                                            <img src={review.user?.avatar} className='w-full h-full object-cover rounded-full'  />
+                                                            <img src={review?.user?.avatar} className='w-full h-full object-cover rounded-full'  />
                                                         </div>
                                                     ):(
                                                         <FaUser />
