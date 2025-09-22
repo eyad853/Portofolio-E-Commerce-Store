@@ -677,6 +677,7 @@ if (!productId) {
     }
 
     await product.save();
+    await product.populate("reviews.user")
 
     const io = req.app.get('io')
     io.emit('newReview' , product)
