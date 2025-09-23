@@ -3,15 +3,16 @@ import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import CheckoutForm from '../../CheckoutForm/CheckoutForm'
 import { stripePromise } from '../../../stripe'
-import axios from 'axios'
 
 // Test Card Information Component
-const TestCardInfo = ({ darkMode, isVisible }) => {
+const TestCardInfo = ({ darkMode, isVisible, isMobile = false }) => {
   if (!isVisible) return null;
   
   return (
-    <div className={`fixed top-4 right-4 w-80 p-4 rounded-lg shadow-lg z-[60] ${
-      darkMode ? 'bg-gray-800 text-white border border-gray-700' : 'bg-white text-gray-800 border border-gray-200'
+    <div className={`${
+      isMobile 
+        ? `p-4 rounded-lg shadow-sm ${darkMode ? 'bg-gray-800 text-white border border-gray-700' : 'bg-white text-gray-800 border border-gray-200'}`
+        : `fixed top-4 right-4 w-80 p-4 rounded-lg shadow-lg z-[60] ${darkMode ? 'bg-gray-800 text-white border border-gray-700' : 'bg-white text-gray-800 border border-gray-200'}`
     }`}>
       <div className="flex items-center gap-2 mb-3">
         <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,6 +56,18 @@ const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, 
   const [paymentStatus, setPaymentStatus] = useState(null) // 'success', 'error', null
   const [statusMessage, setStatusMessage] = useState('')
   const [isProcessing, setIsProcessing] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768) // md breakpoint
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Auto-close after showing status message
   useEffect(() => {
@@ -90,9 +103,8 @@ const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, 
 
   return (
     <>
-      
-      {/* Test Card Information - Rendered outside modal with higher z-index */}
-      {isOpen && <TestCardInfo darkMode={darkMode} isVisible={isOpen} />}
+      {/* Test Card Information - Desktop only (fixed positioning) */}
+      {!isMobile && <TestCardInfo darkMode={darkMode} isVisible={isOpen} />}
       
       <Modal
         isOpen={isOpen}
@@ -155,6 +167,13 @@ const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, 
         {/* Payment Form */}
         {!paymentStatus && (
           <>
+            {/* Mobile Test Card Info - Inline within modal */}
+            {isMobile && (
+              <div className="mb-4">
+                <TestCardInfo darkMode={darkMode} isVisible={true} isMobile={true} />
+              </div>
+            )}
+
             {/* Security Badge */}
             <div className={`mb-4 p-3 rounded-lg ${darkMode ? "bg-gray-800" : "bg-gray-50"} flex items-center gap-2`}>
               <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -183,5 +202,3 @@ const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, 
     </>
   )
 }
-
-export default PaymentModal
