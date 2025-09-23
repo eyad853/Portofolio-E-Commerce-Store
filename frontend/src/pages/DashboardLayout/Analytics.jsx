@@ -99,7 +99,7 @@ const Analytics = ({ overview, ordersPerDay, topSellingProducts, salesDistributi
     const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
     
     return data.map((item, index) => ({
-      name: item._id || 'Unknown',
+      name: item.category || 'Unknown',
       sales: item.totalSold,
       color: colors[index % colors.length]
     }));
@@ -290,7 +290,7 @@ const Analytics = ({ overview, ordersPerDay, topSellingProducts, salesDistributi
                         className="w-3 h-3 rounded-full mr-2 flex-shrink-0"
                         style={{ backgroundColor: category.color }}
                       ></div>
-                      <span className={`${textSecondary} truncate`}>{category.category}</span>
+                      <span className={`${textSecondary} truncate`}>{category.name}</span>
                     </div>
                   ))}
                 </div>
