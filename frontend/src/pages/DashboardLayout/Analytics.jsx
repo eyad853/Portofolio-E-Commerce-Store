@@ -290,7 +290,7 @@ const Analytics = ({ overview, ordersPerDay, topSellingProducts, salesDistributi
                         className="w-3 h-3 rounded-full mr-2 flex-shrink-0"
                         style={{ backgroundColor: category.color }}
                       ></div>
-                      <span className={`${textSecondary} truncate`}>{category.name}</span>
+                      <span className={`${textSecondary} truncate`}>{category.category}</span>
                     </div>
                   ))}
                 </div>
