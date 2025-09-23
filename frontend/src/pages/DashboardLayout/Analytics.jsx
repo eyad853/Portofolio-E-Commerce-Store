@@ -99,7 +99,7 @@ const Analytics = ({ overview, ordersPerDay, topSellingProducts, salesDistributi
     const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
     
     return data.map((item, index) => ({
-      name: item.category || 'Unknown',
+      name: item._id || 'Unknown',
       sales: item.totalSold,
       color: colors[index % colors.length]
     }));
