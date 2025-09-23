@@ -10,7 +10,7 @@ const TestCardInfo = ({ darkMode, isVisible }) => {
   if (!isVisible) return null;
   
   return (
-    <div className={`fixed top-4 right-4 w-80 p-4 rounded-lg shadow-lg z-50 ${
+    <div className={`fixed top-4 right-4 w-80 p-4 rounded-lg shadow-lg z-[60] ${
       darkMode ? 'bg-gray-800 text-white border border-gray-700' : 'bg-white text-gray-800 border border-gray-200'
     }`}>
       <div className="flex items-center gap-2 mb-3">
@@ -90,8 +90,9 @@ const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, 
 
   return (
     <>
-      {/* Test Card Information - Only show when modal is open */}
-      <TestCardInfo darkMode={darkMode} isVisible={isOpen} />
+      
+      {/* Test Card Information - Rendered outside modal with higher z-index */}
+      {isOpen && <TestCardInfo darkMode={darkMode} isVisible={isOpen} />}
       
       <Modal
         isOpen={isOpen}
