@@ -196,7 +196,7 @@ const Signup = ({setTrigger}) => {
                             onClick={()=>{
                                 handleTryAsAdmin()
                             }}
-                            className='w-full font-semibold flex justify-center items-center mt-2.5 h-10 transform hover:scale-105 transition-all duration-300 cursor-pointer border rounded-md'>Try as Admin</button>
+                            className='w-full font-semibold flex justify-center items-center mt-2.5 h-8 transform hover:scale-105 transition-all duration-300 cursor-pointer border rounded-md'>Try as Admin</button>
                             <div className='mx-auto mt-5 text-black hover:text-blue-600 transition-all duration-200'>
                                 <p className=''>
                                     <Link to="/login">Already have an account? Login</Link>
