@@ -7,8 +7,65 @@ import axios from 'axios'
 
 // Test Card Information Component
 const TestCardInfo = ({ darkMode, isVisible }) => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768) // md breakpoint
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   if (!isVisible) return null;
   
+  // On mobile, render as a collapsible section instead of fixed positioning
+  if (isMobile) {
+    return (
+      <div className={`mb-4 p-4 rounded-lg shadow-sm ${
+        darkMode ? 'bg-gray-800 text-white border border-gray-700' : 'bg-white text-gray-800 border border-gray-200'
+      }`}>
+        <div className="flex items-center gap-2 mb-3">
+          <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 className="font-semibold text-sm">Test Card Numbers</h3>
+        </div>
+        
+        <div className="space-y-2 text-xs">
+          <div className={`p-2 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
+            <div className="font-medium">Visa (Success)</div>
+            <div className="font-mono">4242 4242 4242 4242</div>
+          </div>
+          
+          <div className={`p-2 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
+            <div className="font-medium">Visa (Declined)</div>
+            <div className="font-mono">4000 0000 0000 0002</div>
+          </div>
+          
+          <div className={`p-2 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
+            <div className="font-medium">Mastercard</div>
+            <div className="font-mono">5555 5555 5555 4444</div>
+          </div>
+          
+          <div className={`p-2 rounded ${darkMode ? 'bg-gray-700' : 'bg-gray-50'}`}>
+            <div className="font-medium">American Express</div>
+            <div className="font-mono">3782 8224 6310 005</div>
+          </div>
+          
+          <div className="text-xs opacity-75 mt-3 pt-2 border-t border-gray-300 dark:border-gray-600">
+            <div>• Use any future expiry date</div>
+            <div>• Use any 3-4 digit CVC</div>
+            <div>• Use any ZIP code</div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+  
+  // Desktop version with fixed positioning
   return (
     <div className={`fixed top-4 right-4 w-80 p-4 rounded-lg shadow-lg z-[60] ${
       darkMode ? 'bg-gray-800 text-white border border-gray-700' : 'bg-white text-gray-800 border border-gray-200'
@@ -90,9 +147,8 @@ const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, 
 
   return (
     <>
-      
-      {/* Test Card Information - Rendered outside modal with higher z-index */}
-      {isOpen && <TestCardInfo darkMode={darkMode} isVisible={isOpen} />}
+      {/* Test Card Information - Desktop only (fixed positioning) */}
+      <TestCardInfo darkMode={darkMode} isVisible={isOpen} />
       
       <Modal
         isOpen={isOpen}
@@ -155,6 +211,11 @@ const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, 
         {/* Payment Form */}
         {!paymentStatus && (
           <>
+            {/* Mobile Test Card Info - Inline within modal */}
+            <div className="block md:hidden">
+              <TestCardInfo darkMode={darkMode} isVisible={true} />
+            </div>
+
             {/* Security Badge */}
             <div className={`mb-4 p-3 rounded-lg ${darkMode ? "bg-gray-800" : "bg-gray-50"} flex items-center gap-2`}>
               <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -183,5 +244,3 @@ const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, 
     </>
   )
 }
-
-export default PaymentModal
