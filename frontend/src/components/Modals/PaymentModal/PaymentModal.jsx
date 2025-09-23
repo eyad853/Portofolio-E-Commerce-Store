@@ -202,3 +202,5 @@ const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, 
     </>
   )
 }
+
+export default PaymentModal
