@@ -6,8 +6,24 @@ import BuyModal from '../../components/buyModal/BuyModal'
 import axios from 'axios'
 import ReviewModal from '../../components/Modals/ReviewModal/ReviewModal'
 import AddToCartMessage from '../../components/AddToCartMessage/AddToCartMessage'
+import AuthModal from '../../components/Modals/AuthModal/AuthModal'
 
-const MainPage = ({currencySymbol,storeName,storeLogo,darkMode, user,handleAddToCart , updateProductReview ,products, setProducts ,isReviewModalOpen,setIsReviewModalOpen}) => {
+const MainPage = ({
+    currencySymbol,
+    storeName,
+    storeLogo,
+    darkMode,
+    user,
+    handleAddToCart ,
+    updateProductReview ,
+    products,
+    setProducts ,
+    isReviewModalOpen,
+    setIsReviewModalOpen,
+    setShowAuthModal,
+    pendingProduct,
+    showAuthModal
+}) => {
     const [showMessage , setShowMessage]=useState(false)
 
     const handleShow = ()=>{
@@ -42,6 +58,11 @@ const MainPage = ({currencySymbol,storeName,storeLogo,darkMode, user,handleAddTo
         handleShow={handleShow}
         />
         {showMessage?<AddToCartMessage />:null}
+        <AuthModal 
+        showModal={showAuthModal}
+        setShowModal={setShowAuthModal}
+        pendingProduct={pendingProduct}
+        />
     </div>
 )
 }

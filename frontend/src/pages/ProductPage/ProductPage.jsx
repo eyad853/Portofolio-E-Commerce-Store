@@ -5,8 +5,21 @@ import Nav from '../../components/Nav/Nav'
 import ReviewModal from '../../components/Modals/ReviewModal/ReviewModal'
 import { FaUser } from 'react-icons/fa'
 import AddToCartMessage from '../../components/AddToCartMessage/AddToCartMessage'
+import AuthModal from '../../components/Modals/AuthModal/AuthModal'
 
-const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewModalOpen, setIsReviewModalOpen, darkMode ,handleAddToCart}) => {
+const ProductPage = ({
+    socket, 
+    user, 
+    setProducts,
+    updateProductReview, 
+    isReviewModalOpen, 
+    setIsReviewModalOpen, 
+    darkMode ,
+    handleAddToCart,
+    setShowAuthModal,
+    pendingProduct,
+    showAuthModal
+}) => {
     const [product, setProduct] = useState({})
     const [showingImage, setShowingImage] = useState('')
     const [purchaseQuantity, setPurchaseQuantity] = useState(1) // eslint-disable-line no-unused-vars
@@ -441,6 +454,11 @@ const ProductPage = ({socket, user, setProducts, updateProductReview, isReviewMo
                 initialComment={currentUserReview?.comment || ''} // Pass existing comment
             />
             {showMessage?<AddToCartMessage />:null}
+            <AuthModal 
+            showModal={showAuthModal}
+            setShowModal={setShowAuthModal}
+            pendingProduct={pendingProduct}
+            />
         </div>
     )
 }

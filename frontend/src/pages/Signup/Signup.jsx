@@ -6,7 +6,7 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
-const Signup = ({setTrigger}) => {
+const Signup = ({setTrigger,handleAddToCart}) => {
     const navigate = useNavigate();
     const [username , setUsername]=useState('')
     const [email, setEmail] = useState("");

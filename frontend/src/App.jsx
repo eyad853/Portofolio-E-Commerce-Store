@@ -38,6 +38,8 @@ const App = () => {
   const [error, setError] = useState(null);
   const [trigger , setTrigger]=useState(0)
   const [dashboardError , setDashboardError]=useState('')
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [pendingProduct, setPendingProduct] = useState(null);
 
   useEffect(() => {
     socket.on('connect', () => {
@@ -91,8 +93,10 @@ useEffect(() => {
         })
         .catch(error => {
             console.error('Error fetching user:', error);
+        })
+        .finally(() => {
+            setLoadingUser(false);  // ✅ runs after request finishes
         });
-        setLoadingUser(false)
 }, [trigger]);
 
 useEffect(() => {
@@ -112,6 +116,7 @@ useEffect(() => {
 }, [customerId]);
 
 const handleAddToCart = async(product_id)=>{
+  if(user){
     const item = {
         productId:product_id,
         quantity:1
@@ -122,6 +127,10 @@ const handleAddToCart = async(product_id)=>{
     }catch(err){
         console.log(err);
     }
+  }else{
+    setPendingProduct(product_id);
+    setShowAuthModal(true);
+  }
 }
 
 const updateProductReview = async(productId, review , comment)=>{
@@ -219,14 +228,22 @@ const [overview, setOverview] = useState(null);
     fetchSettings();
   }, []);
 
+  useEffect(() => {
+  const pendingProduct = localStorage.getItem("pendingProduct");
+  if (pendingProduct) {
+    handleAddToCart(pendingProduct); // add product to cart automatically
+    localStorage.removeItem("pendingProduct");
+  }
+}, []);
+
 
 
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Signup setTrigger={setTrigger}/>} />
+        <Route path='/signup' element={<Signup setTrigger={setTrigger} handleAddToCart={handleAddToCart}/>} />
         <Route path='/login' element={<Login setTrigger={setTrigger}/>} />
-        <Route path='/home' element={
+        <Route path='/' element={
           loadingProducts?
         (
           <div className='fixed inset-0 flex justify-center items-center'>
@@ -247,6 +264,9 @@ const [overview, setOverview] = useState(null);
         storeLogo={storeLogo}
         setIsOpen={setIsOpen} 
         currencySymbol={currencySymbol}
+        showAuthModal={showAuthModal}
+        setShowAuthModal={setShowAuthModal}
+        pendingProduct={pendingProduct}
         />)}/>
 
         <Route path='/cart' element={<Cart 
@@ -276,6 +296,9 @@ const [overview, setOverview] = useState(null);
         user={user}
         socket={socket}
         handleAddToCart={handleAddToCart}
+        showAuthModal={showAuthModal}
+        setShowAuthModal={setShowAuthModal}
+        pendingProduct={pendingProduct}
         />}/>
 
         <Route path='/admin/dashboard' element={<DashboardLayOut 
