@@ -95,7 +95,9 @@ const ThirdPart = ({handleShow,currencySymbol,darkMode, products , setProducts  
                                                 onClick={(e)=>{
                                                     e.preventDefault(); // stop Link navigation
                                                     e.stopPropagation(); // stop bubbling
-                                                    handleShow()
+                                                    if(user){
+                                                        handleShow()
+                                                    }
                                                     handleAddToCart(product._id)
                                                 }}
                                                 className={`w-full h-full relative overflow-visible ${darkMode?"bg-[#3B82F6] text-[#FFFFFF] hover:bg-[#2563EB]":"bg-gradient-to-r from-blue-500 to-blue-600"}  rounded-xl transform hover:scale-105 z-20 transition-all duration-300 font-semibold flex justify-center items-center text-white`}>Add To Cart</div>
