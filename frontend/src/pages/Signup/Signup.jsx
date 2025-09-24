@@ -71,7 +71,7 @@ const Signup = ({setTrigger,handleAddToCart}) => {
 
             if (!res.data.error) {
                 setTrigger(prev=>prev+1)
-                navigate("/home");
+                navigate("/");
             }
         } catch (error) {
             console.error("Signup failed:", error);

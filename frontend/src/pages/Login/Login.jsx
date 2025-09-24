@@ -42,7 +42,7 @@ const Login = ({setTrigger}) => {
             // If the login is successful (status 200), navigate to home
             if (response.status === 200) {
                 setTrigger(prev=>prev+1)
-                navigate('/home');
+                navigate('/');
             }
         } catch (error) {
             console.error("Login failed:", error);
@@ -135,7 +135,7 @@ const Login = ({setTrigger}) => {
                             </button>
                             <div className='w-full flex items-center justify-center mt-5 text-black hover:text-blue-600 transition-all duration-200'>
                                 <p className=''>
-                                    <Link to="/">Don't have an account? Sign Up</Link> {/* Changed link text */}
+                                    <Link to="/signup">Don't have an account? Sign Up</Link> {/* Changed link text */}
                                 </p>
                             </div>
                         </div>
