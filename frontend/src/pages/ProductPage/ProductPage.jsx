@@ -371,7 +371,10 @@ const ProductPage = ({
                         <button
                             onClick={() => {
                                 handleAddToCart(product._id)
-                                handleShow()}}
+                                if(user){
+                                handleShow()
+                                }
+                            }}
                             disabled={!product.inStock}
                             className={`w-full  py-3 px-6 rounded-lg font-semibold transition-colors ${
                                 product.inStock
