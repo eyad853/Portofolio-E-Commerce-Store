@@ -229,11 +229,13 @@ const [overview, setOverview] = useState(null);
   }, []);
 
   useEffect(() => {
-  const pendingProduct = localStorage.getItem("pendingProduct");
-  if (pendingProduct) {
-    handleAddToCart(pendingProduct); // add product to cart automatically
-    localStorage.removeItem("pendingProduct");
-  }
+    if(user){
+      const pendingProduct = localStorage.getItem("pendingProduct");
+      if (pendingProduct) {
+        handleAddToCart(pendingProduct); // add product to cart automatically
+        localStorage.removeItem("pendingProduct");
+      }
+    }
 }, []);
 
 
