@@ -35,7 +35,7 @@ const Nav = ({user , darkMode , storeName,storeLogo,setIsOpen}) => {
         
         {/* Pages */}
         <div className='flex gap-2 sm:gap-6 lg:gap-10 font-bold text-xs sm:text-base'>
-            <Link className='cursor-pointer' to='/home'>Shop</Link>
+            <Link className='cursor-pointer' to='/'>Shop</Link>
             <Link className='cursor-pointer' to='/cart'>Cart</Link>
             <Link className='cursor-pointer' to='/userOrders'>Orders</Link>
             {user&&user?.role==="admin"&&<Link className='cursor-pointer' to='/admin/dashboard'>Dashboard</Link>}

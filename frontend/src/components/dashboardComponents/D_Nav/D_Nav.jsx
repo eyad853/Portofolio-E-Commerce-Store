@@ -30,7 +30,7 @@ const D_Nav = ({user, onToggleSidebar,darkMode}) => {
         <div className="flex items-center gap-2 sm:gap-3">
             {/* Back to Home Button */}
             <Link 
-                to={'/home'} 
+                to={'/'} 
                 className="p-2 rounded-md hover:bg-neutral-100 dark:hover:bg-[#2A2A2A] transition-colors duration-200"
                 title="Back to Home"
             >
