@@ -101,10 +101,10 @@ const ProductsPart = ({currencySymbol,products ,handleShow ,darkMode ,updateProd
                     onClick={(e)=>{
                        e.preventDefault(); // stop Link navigation
                       e.stopPropagation(); // stop bubbling
+                      handleAddToCart(product._id)
                       if(user){
                         handleShow()
                       }
-                      handleAddToCart(product._id)
                     }}
                     className={`w-full relative overflow-visible h-full z-20 ${darkMode?"bg-[#3B82F6] text-[#FFFFFF] hover:bg-[#2563EB]":"bg-gradient-to-r from-blue-500 to-blue-600"}  rounded-xl transform hover:scale-105 transition-all duration-300 z-10 font-semibold flex justify-center items-center text-white text-sm md:text-base`}>Add To Cart</div>
                   </div>
