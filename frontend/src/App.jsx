@@ -235,6 +235,8 @@ const [overview, setOverview] = useState(null);
         handleAddToCart(pendingProduct); // add product to cart automatically
         localStorage.removeItem("pendingProduct");
       }
+    }else{
+      localStorage.removeItem("pendingProduct");
     }
 }, []);
 
