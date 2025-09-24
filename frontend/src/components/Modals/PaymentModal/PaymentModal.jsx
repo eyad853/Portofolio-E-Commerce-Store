@@ -51,6 +51,8 @@ const TestCardInfo = ({ darkMode, isVisible, isMobile = false }) => {
     </div>
   )
 }
+// isProcessing
+// isProcessing
 
 const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, darkMode}) => {
   const [paymentStatus, setPaymentStatus] = useState(null) // 'success', 'error', null
@@ -121,7 +123,7 @@ const PaymentModal = ({isOpen, setIsOpen, clearCart, clientSecret, createOrder, 
           <h2 className={`text-xl sm:text-2xl font-bold ${darkMode ? "text-white" : "text-gray-800"}`}>
             Complete Your Payment
           </h2>
-          {!isProcessing && (
+          {!isProcessing&& (
             <button
               onClick={handleClose}
               className={`p-2 rounded-full hover:bg-gray-200 ${darkMode ? "hover:bg-gray-700" : ""} transition-colors`}
