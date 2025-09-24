@@ -17,8 +17,8 @@ const AuthModal = ({showModal , setShowModal, pendingProduct}) => {
         isOpen={showModal}
         onRequestClose={() => setShowModal(false)}
         contentLabel="Signup Choice"
-        shouldCloseOnOverlayClick={!isProcessing}
-        shouldCloseOnEsc={!isProcessing}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
         className="bg-white p-6 rounded-lg shadow-lg  w-11/12 max-w-md  mx-auto  mt-20  sm:mt-32
         "
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-startsm:items-center">
