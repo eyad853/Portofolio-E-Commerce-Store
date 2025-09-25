@@ -3,7 +3,7 @@ import { FaUser } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import ViewUserData from '../ViewUserData/ViewUserData'
 
-const Nav = ({user , darkMode , storeName,storeLogo,setIsOpen}) => {
+const Nav = ({user , darkMode , storeName,storeLogo,setIsOpen,setDarkMode}) => {
     const [viewUserData , setViewUserData]=useState(false)
     const profileRef = useRef(null)
    // Close menu when clicking outside
@@ -60,7 +60,7 @@ const Nav = ({user , darkMode , storeName,storeLogo,setIsOpen}) => {
             <div className='font-semibold text-sm md:text-base hidden sm:block'>
                 {user&&user.username}
             </div>
-            {viewUserData&&<ViewUserData user={user} darkMode={darkMode}/>}
+            {viewUserData&&<ViewUserData setDarkMode={setDarkMode} user={user} darkMode={darkMode}/>}
         </div>
     </div>
   )

@@ -23,6 +23,7 @@ import { AddCategory,
     getSettingsController,
     getTopSellingProducts,
     getUserOrders,
+    getUserSettings,
     increaseQuantity,
     logout,
     normalLogin,
@@ -31,6 +32,7 @@ import { AddCategory,
     searchProducts,
     secondGithubRoute,
     secondGoogleRoute,
+    toggleDarkModeForUser,
     tryAsFakeAdmin,
     upadteUserLocation,
     updateCategory,
@@ -126,6 +128,10 @@ router.delete(`/order/cancel/:id`,isRealAdmin, getAllOrders)
 router.get('/settings/get', getSettingsController);
 router.patch('/settings/update',uploadProfileImages,isRealAdmin, updateSettingsController);
 router.delete("/settings/logoutAccount" , logout)
+// Get user settings
+router.get("/getUserSettings", getUserSettings);
+// Toggle dark mode
+router.patch("/toggleDarkModeForUser", toggleDarkModeForUser);
 
 
 

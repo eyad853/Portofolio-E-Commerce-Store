@@ -285,42 +285,6 @@ const SettingsPage = ({
               <h2 className={`text-lg sm:text-xl font-semibold ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>Display & System</h2>
             </div>
 
-            {/* Dark Mode Toggle Switch */}
-            <div className={`mb-4 sm:mb-6 p-3 sm:p-4 ${innerCardBg} rounded-lg border ${borderColor}`}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center flex-1 min-w-0 mr-3">
-                  <div className={`p-2 rounded-lg mr-3 flex-shrink-0 ${darkMode ? 'bg-blue-900' : darkMode ? 'bg-blue-100' : 'bg-yellow-100'}`}>
-                    {darkMode ? (
-                      <Moon className={`${darkMode ? 'text-blue-400' : 'text-blue-600'}`} size={20} />
-                    ) : (
-                      <Sun className="text-yellow-600" size={20} />
-                    )}
-                  </div>
-                  <div className="min-w-0">
-                    <label htmlFor="darkModeToggle" className={`text-sm sm:text-base font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'} cursor-pointer block truncate`}>
-                      {darkMode ? 'Dark Mode' : 'Light Mode'}
-                    </label>
-                    <p className={`text-xs sm:text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'} truncate`}>
-                      {darkMode ? 'Switch to light appearance' : 'Switch to dark appearance'}
-                    </p>
-                  </div>
-                </div>
-                <button
-                  id="darkModeToggle"
-                  onClick={() => setDarkMode(prev => !prev)}
-                  className={`relative inline-flex h-6 w-11 sm:h-7 sm:w-12 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 flex-shrink-0 ${
-                    darkMode ? 'bg-blue-600 focus:ring-blue-500' : 'bg-gray-300 focus:ring-gray-400'
-                  }`}
-                >
-                  <span
-                    className={`inline-block h-4 w-4 sm:h-5 sm:w-5 transform rounded-full bg-white transition-transform duration-300 shadow-sm ${
-                      darkMode ? 'translate-x-6 sm:translate-x-6' : 'translate-x-1'
-                    }`}
-                  />
-                </button>
-              </div>
-            </div>
-
             {/* Maintenance Mode Toggle Switch */}
             <div className={`p-3 sm:p-4 ${innerCardBg} rounded-lg border ${borderColor}`}>
               <div className="flex items-center justify-between">

@@ -5,7 +5,7 @@ import { FaTrash, FaUser, FaPlus, FaMinus, FaShoppingBag } from "react-icons/fa"
 import Nav from '../../components/Nav/Nav';
 import PaymentModal from '../../components/Modals/PaymentModal/PaymentModal';
 
-const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,storeName,storeLogo,}) => {
+const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,setDarkMode,storeName,storeLogo,}) => {
   const [cart, setCart] = useState({});
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
@@ -214,7 +214,7 @@ const clearCart = async () => {
     <>
     <div className={`w-full min-h-screen flex flex-col overflow-x-hidden ${darkMode ? "bg-[#1A1A1A] text-[#EAEAEA]" : "bg-gray-50"}`}>
       {/* Navbar */}
-      <Nav darkMode={darkMode} user={user} storeName={storeName} storeLogo={storeLogo}/>
+      <Nav darkMode={darkMode} user={user} setDarkMode={setDarkMode} storeName={storeName} storeLogo={storeLogo}/>
 
       {/* Error Message */}
       {error && (

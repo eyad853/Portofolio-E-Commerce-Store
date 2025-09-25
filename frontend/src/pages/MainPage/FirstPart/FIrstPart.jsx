@@ -12,7 +12,7 @@ const FirstPart = ({user,darkMode , setDarkMode,storeName,storeLogo}) => {
     {/* nav */}
     <Nav 
      user={user}
-     darkMode={darkMode}  
+     darkMode={darkMode}
      setDarkMode={setDarkMode}
      storeName={storeName}
     storeLogo={storeLogo} 

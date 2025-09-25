@@ -90,7 +90,7 @@ const ProductsPart = ({currencySymbol,products ,handleShow ,darkMode ,updateProd
                       <div className="font-semibold text-blue-600 text-sm md:text-base">
                         {product.quality}
                       </div>
-                      <div className={`font-bold ${darkMode?"text-[#3B82F6]":""} text-lg md:text-xl lg:text-2xl`}>
+                      <div className={`font-bold ${darkMode?"text-[#3B82F6]":""} line-clamp-1 text-lg md:text-xl lg:text-2xl`}>
                         {`${currencySymbol}${product.price}`}
                       </div>
                     </div>

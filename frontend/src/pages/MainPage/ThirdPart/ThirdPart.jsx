@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Twitter, Facebook, Linkedin, Instagram, Star } from 'lucide-react';
 import {Link} from 'react-router-dom'
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const ThirdPart = ({handleShow,currencySymbol,darkMode, products , setProducts  ,handleAddToCart}) => {
     const [recommendedProducts, setRecommendedProducts] = useState([]);
@@ -57,56 +58,83 @@ const ThirdPart = ({handleShow,currencySymbol,darkMode, products , setProducts  
                 </h1>
                 
                 {recommendedProducts.length > 0 ? (
-                    <div className="w-full h-120 px-1 md:px-3 py-3 flex overflow-x-auto hide-scrollbar gap-4 md:gap-10 mt-8">
-                        {recommendedProducts.map(product => (
-                            <div 
-                            key={product._id || product.id} 
-                            className={`border ${darkMode?"bg-[#1E1E1E]":""}  min-w-72 md:w-80 relative transform hover:scale-105 transition-all duration-300 cursor-pointer rounded-xl border-neutral-300`}
-                                          >
-                                            <Link to={`/product/${product._id}`} className='absolute inset-0 z-10'></Link>
-                                            {/* mainImage  */}
-                                            <div className="h-3/5 bg-neutral-200 flex justify-center items-center">
-                                              <img 
-                                                src={`${import.meta.env.VITE_BACKEND_URL}${product.mainImage}`} 
-                                                className='w-full h-full object-contain' 
-                                              />
-                                            </div>
-                            
-                                            {/* second part */}
-                            
-                                            <div className="h-2/5 px-2 py-1">
-                                              <div className={`line-clamp-1 ${darkMode?"text-[#FFFFFF]":""} text-xl md:text-2xl font-bold`}>{product.name}</div>
-                                              <div className={`line-clamp-1 ${darkMode?"text-[#A0A0A0]":""} font-semibold text-xs mt-1.5`}>{product.description}</div>
-                            
-                                              <div className="flex flex-col md:flex-row justify-between mt-1.5 items-start md:items-center gap-2">
-                                                {renderStars(product)}
-                                                <div className="flex items-center gap-2 md:gap-4">
-                                                  <div className="font-semibold text-blue-600 text-sm">
-                                                    {product.quality}
-                                                  </div>
-                                                  <div className={`font-bold ${darkMode?"text-[#3B82F6]":""} text-xl md:text-2xl`}>
-                                                    {`${currencySymbol}${product.price}`}
-                                                  </div>
-                                                </div>
-                                              </div>
-                            
-                                              <div className="w-full relative overflow-visible px-3 h-10 mt-5">
-                                                <div 
-                                                onClick={(e)=>{
-                                                    e.preventDefault(); // stop Link navigation
-                                                    e.stopPropagation(); // stop bubbling
-                                                    handleAddToCart(product._id)
-                                                    if(user){
-                                                        handleShow()
-                                                    }
-                                                }}
-                                                className={`w-full h-full relative overflow-visible ${darkMode?"bg-[#3B82F6] text-[#FFFFFF] hover:bg-[#2563EB]":"bg-gradient-to-r from-blue-500 to-blue-600"}  rounded-xl transform hover:scale-105 z-20 transition-all duration-300 font-semibold flex justify-center items-center text-white`}>Add To Cart</div>
-                                              </div>
-                                            </div>
-                            
-                                          </div>
-                        ))}
+                    <div className="relative mt-8">
+  {/* Left Arrow */}
+  <button 
+    onClick={() => {
+      const container = document.getElementById('products-container');
+      container.scrollBy({ left: -300, behavior: 'smooth' });
+    }}
+    className={`absolute cursor-pointer left-0 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full ${darkMode ? "bg-[#3B82F6] text-white" : "bg-white shadow-lg"} flex items-center justify-center hover:scale-110 transition-all duration-200`}
+  >
+    <FaChevronLeft />
+  </button>
+  
+  {/* Right Arrow */}
+  <button 
+    onClick={() => {
+      const container = document.getElementById('products-container');
+      container.scrollBy({ left: 300, behavior: 'smooth' });
+    }}
+    className={`absolute cursor-pointer right-0 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full ${darkMode ? "bg-[#3B82F6] text-white" : "bg-white shadow-lg"} flex items-center justify-center hover:scale-110 transition-all duration-200`}
+  >
+    <FaChevronRight />
+  </button>
+
+  <div 
+    id="products-container"
+    className="w-full h-120 px-1 md:px-3 py-3 flex overflow-x-auto hide-scrollbar gap-4 md:gap-10"
+  >
+    {recommendedProducts.map(product => (
+      <div 
+      key={product._id || product.id} 
+      className={`border ${darkMode?"bg-[#1E1E1E]":""}  min-w-72 md:w-80 relative transform hover:scale-105 transition-all duration-300 cursor-pointer rounded-xl border-neutral-300`}
+                    >
+                      <Link to={`/product/${product._id}`} className='absolute inset-0 z-10'></Link>
+                      {/* mainImage  */}
+                      <div className="h-3/5 bg-neutral-200 flex justify-center items-center">
+                        <img 
+                          src={`${import.meta.env.VITE_BACKEND_URL}${product.mainImage}`} 
+                          className='w-full h-full object-contain' 
+                        />
+                      </div>
+      
+                      {/* second part */}
+      
+                      <div className="h-2/5 px-2 py-1">
+                        <div className={`line-clamp-1 ${darkMode?"text-[#FFFFFF]":""} text-xl md:text-2xl font-bold`}>{product.name}</div>
+                        <div className={`line-clamp-1 ${darkMode?"text-[#A0A0A0]":""} font-semibold text-xs mt-1.5`}>{product.description}</div>
+      
+                        <div className="flex flex-col md:flex-row justify-between mt-1.5 items-start md:items-center gap-2">
+                          {renderStars(product)}
+                          <div className="flex items-center gap-2 md:gap-4">
+                            <div className="font-semibold text-blue-600 text-sm">
+                              {product.quality}
+                            </div>
+                            <div className={`font-bold ${darkMode?"text-[#3B82F6]":""} text-xl line-clamp-1 md:text-2xl`}>
+                              {`${currencySymbol}${product.price}`}
+                            </div>
+                          </div>
+                        </div>
+      
+                        <div className="w-full relative overflow-visible px-3 h-10 mt-5">
+                          <div 
+                          onClick={(e)=>{
+                              e.preventDefault(); // stop Link navigation
+                              e.stopPropagation(); // stop bubbling
+                              handleAddToCart(product._id)
+                              if(user){
+                                  handleShow()
+                              }
+                          }}
+                          className={`w-full h-full relative overflow-visible ${darkMode?"bg-[#3B82F6] text-[#FFFFFF] hover:bg-[#2563EB]":"bg-gradient-to-r from-blue-500 to-blue-600"}  rounded-xl transform hover:scale-105 z-20 transition-all duration-300 font-semibold flex justify-center items-center text-white`}>Add To Cart</div>
+                        </div>
+                      </div>
+      
                     </div>
+    ))}
+  </div>
+</div>
                 ) : (
                     <div className="text-center mt-8 text-gray-500">No recommended products available</div>
                 )}

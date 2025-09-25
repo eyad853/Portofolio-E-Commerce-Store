@@ -214,7 +214,6 @@ const [overview, setOverview] = useState(null);
       const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/settings/get`);
       setStoreName(data.storeName || '');
       setStoreLogo(data.logo || '');
-      setDarkMode(data.darkMode ?? false);
       setMaintenanceMode(data.maintenanceMode ?? false);
       setCurrencySymbol(data.currencySymbol || '$');
       setError(null);
@@ -240,6 +239,21 @@ const [overview, setOverview] = useState(null);
     }
 }, []);
 
+const fetchUserSettings = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/getUserSettings`, {
+        withCredentials: true, // important for sessions
+      });
+      setDarkMode(res?.data?.settings?.darkMode);
+    } catch (err) {
+      console.error("Failed to fetch user settings:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserSettings();
+  }, []);
+
 
 
   return (
@@ -256,6 +270,7 @@ const [overview, setOverview] = useState(null);
         ):(
         <MainPage 
         darkMode={darkMode} 
+        setDarkMode={setDarkMode}
         isReviewModalOpen={isReviewModalOpen} 
         setIsReviewModalOpen={setIsReviewModalOpen} 
         products={products}
@@ -278,11 +293,13 @@ const [overview, setOverview] = useState(null);
         isCartOpen={isCartOpen} 
         setIsCartOpen={setIsCartOpen}
         darkMode={darkMode} 
+        setDarkMode={setDarkMode}
         storeLogo={storeLogo}
         storeName={storeName}
         />}/>
         <Route path='/userOrders' element={<UserOrders 
         darkMode={darkMode} 
+        setDarkMode={setDarkMode}
         user={user}
         storeLogo={storeLogo}
         storeName={storeName}

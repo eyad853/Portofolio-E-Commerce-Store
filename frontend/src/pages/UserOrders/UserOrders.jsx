@@ -5,7 +5,7 @@ import { TbPointFilled } from "react-icons/tb";
 import { IoMdClose } from "react-icons/io";
 import { Link } from 'react-router-dom';
 
-const UserOrders = ({user, darkMode,storeName,storeLogo}) => {
+const UserOrders = ({user, darkMode,setDarkMode,storeName,storeLogo}) => {
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -65,7 +65,7 @@ const UserOrders = ({user, darkMode,storeName,storeLogo}) => {
 
   return (
     <div className={`w-screen h-screen overflow-auto ${darkMode ? "bg-[#1A1A1A] text-[#EAEAEA]" : "bg-neutral-50"}`}>
-      <Nav storeName={storeName} storeLogo={storeLogo} darkMode={darkMode} user={user}/>
+      <Nav setDarkMode={setDarkMode} storeName={storeName} storeLogo={storeLogo} darkMode={darkMode} user={user}/>
 
       {loading?(
         <div className='w-full h-full inset-0 flex justify-center items-center'>

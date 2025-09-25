@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react'
 import { FaUser } from 'react-icons/fa'
 
-const ViewUserData = ({user , darkMode}) => {
+const ViewUserData = ({user , darkMode,setDarkMode}) => {
     const logoutUser = async () => {
         try {
             const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/settings/logoutAccount`, {
@@ -19,11 +19,24 @@ const ViewUserData = ({user , darkMode}) => {
             console.error('Logout error:', error.response?.data?.message || error.message);
         }
     };
+
+    const toggleDarkMode = async () => {
+  try {
+    setDarkMode(prev=>!prev)
+    const res = await axios.patch(
+      `${import.meta.env.VITE_BACKEND_URL}/toggleDarkModeForUser`,
+      {},
+      { withCredentials: true } // important for session cookies
+    );
+  } catch (err) {
+    console.error("Failed to toggle dark mode:", err);
+  }
+};
     
     return (
         <div className={`absolute top-12 md:top-16 -right-2 md:-right-16 lg:-right-20 
             w-48 sm:w-56 md:w-60 lg:w-64
-            min-h-[12rem] sm:min-h-[13rem] md:min-h-[14rem]
+            min-h-[14rem] sm:min-h-[13rem] md:min-h-[14rem]
             rounded-xl border shadow-2xl z-50
             ${darkMode ? "bg-neutral-800 border-neutral-700" : "bg-neutral-100 border-neutral-300"} 
             flex justify-center items-center flex-col gap-3 sm:gap-3.5 md:gap-4
@@ -39,7 +52,7 @@ const ViewUserData = ({user , darkMode}) => {
                         <img src={user.avatar} className='w-full h-full object-cover rounded-full' alt="" />
                     </div>
                 ) : (
-                    <FaUser />
+                    <FaUser size={60}/>
                 )}
             </div>
             
@@ -62,6 +75,16 @@ const ViewUserData = ({user , darkMode}) => {
                         focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50">
                     LogOut
                 </button>
+            </div>
+            <div className="w-full h-6 flex justify-around items-center">
+                <div className="font-bold">Dark Mode :</div>
+                <div 
+                onClick={()=>{
+                    toggleDarkMode()
+                }}
+                className="w-10 h-5 relative rounded-full flex items-center border">
+                    <div className={`w-4 h-full rounded-full ${darkMode?"right-0 bg-green-400":"left-0 bg-red-600"} `}></div>
+                </div>
             </div>
         </div>
     )

@@ -13,8 +13,10 @@ import ordersModel from "../schemas/orders.js";
 import { error } from "console";
 import AdminSettings from "../schemas/Settings.js";
 import { fileURLToPath } from 'url';
+import UserSetting from '../schemas/UserSettings.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 console.log(__dirname);
 
@@ -1156,5 +1158,44 @@ export const logout = (req, res) => {
   });
 };
 
+// Get settings by userId
+export const getUserSettings = async (req, res) => {
+  try {
+    const userId  = req.user.id;
 
+    let settings = await UserSetting.findOne({ user: userId }).populate("user");
+    if (!settings) {
+      settings = new UserSetting({ user: userId, darkMode: false });
+      await settings.save();
+      
+      return res.status(201).json({
+        message: "Dark mode enabled",
+        settings,
+      });
+    }
 
+    res.status(200).json(settings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Toggle dark mode for user
+export const toggleDarkModeForUser = async (req, res) => {
+  try {
+    const userId  = req?.user?.id;
+
+    let settings = await UserSetting.findOne({ user: userId });
+
+    // Toggle darkMode
+    settings.darkMode = !settings.darkMode;
+    await settings.save();
+
+    res.status(200).json({
+      message: settings.darkMode ? "Dark mode enabled" : "Dark mode disabled",
+      settings,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

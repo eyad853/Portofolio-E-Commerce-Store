@@ -22,7 +22,8 @@ const MainPage = ({
     setIsReviewModalOpen,
     setShowAuthModal,
     pendingProduct,
-    showAuthModal
+    showAuthModal,
+    setDarkMode
 }) => {
     const [showMessage , setShowMessage]=useState(false)
 
@@ -37,6 +38,7 @@ const MainPage = ({
     <div  className={`w-screen h-screen overflow-auto hide-scrollbar`}>
         <FirstPart  
         darkMode={darkMode} 
+        setDarkMode={setDarkMode}
         user={user}
         storeName={storeName}
         storeLogo={storeLogo}
