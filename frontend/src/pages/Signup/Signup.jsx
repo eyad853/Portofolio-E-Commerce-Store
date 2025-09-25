@@ -45,7 +45,7 @@ const Signup = ({setTrigger,handleAddToCart}) => {
             const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/tryAsFakeAdmin`,{} , {withCredentials:true});
             if(!res.data.error){
                 setTrigger(prev=>prev+1)
-                navigate('/home')
+                navigate('/')
             }
             setLoadings(false)
         } catch (error) {
