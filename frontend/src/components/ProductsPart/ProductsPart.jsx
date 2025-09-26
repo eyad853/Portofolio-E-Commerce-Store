@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { IoIosStarOutline } from "react-icons/io";
 import { IoStar } from "react-icons/io5";
 
-const ProductsPart = ({currencySymbol,products ,handleShow ,darkMode ,updateProductReview,searchCategory, setProducts , handleAddToCart}) => {
+const ProductsPart = ({user,currencySymbol,products ,handleShow ,darkMode ,updateProductReview,searchCategory, setProducts , handleAddToCart}) => {
   const [currentPage, setCurrentPage] = useState(0);
   const productsPerPage = 9;
 

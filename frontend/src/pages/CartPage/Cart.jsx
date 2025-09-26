@@ -12,6 +12,7 @@ const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,setDarkMode,storeName,
   const [error, setError] = useState('');
   const [isOpen , setIsOpen]=useState(false)
   const [clientSecret, setClientSecret] = useState('');
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
 
   const [shippingAddress , setShippingAddress]=useState({})
 
@@ -179,8 +180,6 @@ const clearCart = async () => {
       </div>
     );
   }
-
-  console.log(cart);
 
   const createOrder = async () => {
 

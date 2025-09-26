@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaUser } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ViewUserData from '../ViewUserData/ViewUserData'
 
-const Nav = ({user , darkMode , storeName,storeLogo,setIsOpen,setDarkMode}) => {
+const Nav = ({setShowAuthModal,user , darkMode , storeName,storeLogo,setIsOpen,setDarkMode}) => {
     const [viewUserData , setViewUserData]=useState(false)
     const profileRef = useRef(null)
+    const navigate = useNavigate()
    // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -35,10 +36,27 @@ const Nav = ({user , darkMode , storeName,storeLogo,setIsOpen,setDarkMode}) => {
         
         {/* Pages */}
         <div className='flex gap-2 sm:gap-6 lg:gap-10 font-bold text-xs sm:text-base'>
-            <Link className='cursor-pointer' to='/'>Shop</Link>
-            <Link className='cursor-pointer' to='/cart'>Cart</Link>
-            <Link className='cursor-pointer' to='/userOrders'>Orders</Link>
-            {user&&user?.role==="admin"&&<Link className='cursor-pointer' to='/admin/dashboard'>Dashboard</Link>}
+            <div className='cursor-pointer' onClick={()=>{
+                    navigate('/')
+            }}>Shop</div>
+            <div className='cursor-pointer' onClick={()=>{
+                if(user){
+                    navigate('/cart')
+                }else{
+                    setShowAuthModal(true)
+                }
+            }}>Cart</div>
+            <div className='cursor-pointer' onClick={()=>{
+                if(user){
+                    navigate('/userOrders')
+                }else{
+                    setShowAuthModal(true)
+                }
+            }}>Orders</div>
+            {user&&user?.role==="admin"&&
+            <div className='cursor-pointer' onClick={()=>{
+                    navigate('/admin/dashboard')
+            }}>Dashboard</div>}
         </div>
         
         {/* profile , search */}

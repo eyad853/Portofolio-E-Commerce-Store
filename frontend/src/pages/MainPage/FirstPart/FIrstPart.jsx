@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { FaUser } from "react-icons/fa";
 import Nav from '../../../components/Nav/Nav';
 
-const FirstPart = ({user,darkMode , setDarkMode,storeName,storeLogo}) => {
+const FirstPart = ({setShowAuthModal,user,darkMode , setDarkMode,storeName,storeLogo}) => {
 
   return (
     <div className='w-full h-100 relative'>
@@ -16,6 +16,7 @@ const FirstPart = ({user,darkMode , setDarkMode,storeName,storeLogo}) => {
      setDarkMode={setDarkMode}
      storeName={storeName}
     storeLogo={storeLogo} 
+    setShowAuthModal={setShowAuthModal}
      />
      
     <div className={`absolute bottom-0 flex items-center justify-between right-4 md:right-20 left-4 md:left-20 h-12 md:h-16 rounded-t-2xl  ${darkMode?"bg-[#1C1C1C] text-[#EAEAEA]":"bg-white"}`}>

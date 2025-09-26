@@ -42,6 +42,7 @@ const MainPage = ({
         user={user}
         storeName={storeName}
         storeLogo={storeLogo}
+        setShowAuthModal={setShowAuthModal}
         />
         <SecondPart  
         darkMode={darkMode} 
@@ -50,6 +51,7 @@ const MainPage = ({
         handleAddToCart={handleAddToCart}
         currencySymbol={currencySymbol}
         handleShow={handleShow}
+        user={user}
         />
         <ThirdPart  
         darkMode={darkMode} 
@@ -58,6 +60,7 @@ const MainPage = ({
         handleAddToCart={handleAddToCart}
         currencySymbol={currencySymbol}
         handleShow={handleShow}
+        user={user}
         />
         {showMessage?<AddToCartMessage />:null}
         <AuthModal 

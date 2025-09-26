@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Twitter, Facebook, Linkedin, Instagram, Star } from 'lucide-react';
 import {Link} from 'react-router-dom'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { IoIosStarOutline } from "react-icons/io";
+import { IoStar } from "react-icons/io5";
 
-const ThirdPart = ({handleShow,currencySymbol,darkMode, products , setProducts  ,handleAddToCart}) => {
+const ThirdPart = ({user,handleShow,currencySymbol,darkMode, products , setProducts  ,handleAddToCart}) => {
     const [recommendedProducts, setRecommendedProducts] = useState([]);
     const [email, setEmail] = useState('');
 
@@ -28,8 +30,8 @@ const ThirdPart = ({handleShow,currencySymbol,darkMode, products , setProducts  
     }
 
     const StarIcon = ({ filled, className, ...props }) => (
-        filled ? <Star className={className} {...props} fill="currentColor" /> : <Star className={className} {...props} />
-    )
+        filled ? <IoStar className={className} {...props} /> : <IoIosStarOutline className={className} {...props} />
+      )
 
     const renderStars = (product) => {
         const rating = calculateAverageRating(product)
@@ -111,7 +113,7 @@ const ThirdPart = ({handleShow,currencySymbol,darkMode, products , setProducts  
                             <div className="font-semibold text-blue-600 text-sm">
                               {product.quality}
                             </div>
-                            <div className={`font-bold ${darkMode?"text-[#3B82F6]":""} text-xl line-clamp-1 md:text-2xl`}>
+                            <div className={`font-bold ${darkMode?"text-[#3B82F6]":""}  line-clamp-1 md:text-2xl`}>
                               {`${currencySymbol}${product.price}`}
                             </div>
                           </div>

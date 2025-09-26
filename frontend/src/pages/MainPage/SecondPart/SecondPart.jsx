@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Sidebar from '../../../components/Sidebar/Sidebar'
 import ProductsPart from '../../../components/ProductsPart/ProductsPart'
 
-const SecondPart = ({currencySymbol,darkMode,handleShow,products, setProducts,updateProductReview ,handleAddToCart}) => {
+const SecondPart = ({user,currencySymbol,darkMode,handleShow,products, setProducts,updateProductReview ,handleAddToCart}) => {
   const [searchCategory, setSearchCategory]=useState('all')
   return (
     <div className='min-h-screen flex flex-col lg:flex-row'>
@@ -19,6 +19,7 @@ const SecondPart = ({currencySymbol,darkMode,handleShow,products, setProducts,up
           setProducts={setProducts}
           currencySymbol={currencySymbol}
           handleShow={handleShow}
+          user={user}
         />
     </div>
   )
