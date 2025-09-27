@@ -89,10 +89,12 @@ useEffect(() => {
                 setUser(response.data.user);
                 setCustomerId(response.data.user._id)
                 console.log(response.data.user||"no data");
+            }else{
+              setUser(null)
             }
         })
         .catch(error => {
-            console.error('Error fetching user:', error);
+            setUser(null); // no user logged in
         })
         .finally(() => {
             setLoadingUser(false);  // ✅ runs after request finishes
@@ -252,8 +254,9 @@ const fetchUserSettings = async () => {
   };
 
   useEffect(() => {
+  if(!user)return
       fetchUserSettings();
-  }, []);
+  }, [user]);
 
 
 

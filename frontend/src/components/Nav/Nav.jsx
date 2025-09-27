@@ -63,7 +63,11 @@ const Nav = ({setShowAuthModal,user , darkMode , storeName,storeLogo,setIsOpen,s
         <div 
         ref={profileRef}
         onClick={()=>{
-            setViewUserData(prev=>!prev)
+            if(user){
+                setViewUserData(prev=>!prev)
+            }else{
+                setShowAuthModal(true)
+            }
         }}
         className='flex gap-1 md:gap-2 cursor-pointer mr-2 md:mr-7 items-center relative'>
             <div className={`w-8 md:w-10 h-8 md:h-10 overflow-hidden text-2xl md:text-4xl  ${darkMode?"border-2 border-white":""}  relative rounded-full bg-gray-400 flex justify-center items-end`}>
