@@ -1161,7 +1161,7 @@ export const logout = (req, res) => {
 // Get settings by userId
 export const getUserSettings = async (req, res) => {
   try {
-    const userId  = req.user.id;
+    const userId  = req?.user?.id;
 
     let settings = await UserSetting.findOne({ user: userId }).populate("user");
     if (!settings) {
@@ -1187,9 +1187,12 @@ export const toggleDarkModeForUser = async (req, res) => {
 
     let settings = await UserSetting.findOne({ user: userId });
 
-    // Toggle darkMode
-    settings.darkMode = !settings.darkMode;
-    await settings.save();
+    if (!settings) {
+        settings = new UserSetting({ user: userId, darkMode: true });
+    } else {
+        settings.darkMode = !settings.darkMode;
+    }
+await settings.save();
 
     res.status(200).json({
       message: settings.darkMode ? "Dark mode enabled" : "Dark mode disabled",

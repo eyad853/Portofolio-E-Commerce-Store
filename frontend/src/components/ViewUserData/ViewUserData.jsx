@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react'
 import { FaUser } from 'react-icons/fa'
 
-const ViewUserData = ({user , darkMode,setDarkMode}) => {
+const ViewUserData = ({profileRef ,user , darkMode,setDarkMode}) => {
     const logoutUser = async () => {
         try {
             const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/settings/logoutAccount`, {
@@ -34,7 +34,7 @@ const ViewUserData = ({user , darkMode,setDarkMode}) => {
 };
     
     return (
-        <div className={`absolute top-12 md:top-16 -right-2 md:-right-16 lg:-right-20 
+        <div ref={profileRef} className={`absolute top-12 md:top-16 -right-2 md:-right-16 lg:-right-20 
             w-48 sm:w-56 md:w-60 lg:w-64
             min-h-[14rem] sm:min-h-[13rem] md:min-h-[14rem]
             rounded-xl border shadow-2xl z-50
@@ -83,7 +83,7 @@ const ViewUserData = ({user , darkMode,setDarkMode}) => {
                     toggleDarkMode()
                 }}
                 className="w-10 h-5 relative rounded-full flex items-center border">
-                    <div className={`w-4 h-full rounded-full ${darkMode?"right-0 bg-green-400":"left-0 bg-red-600"} `}></div>
+                    <div className={`w-4 absolute h-full rounded-full ${darkMode?"right-0 bg-green-400":"left-0 bg-red-600"} `}></div>
                 </div>
             </div>
         </div>

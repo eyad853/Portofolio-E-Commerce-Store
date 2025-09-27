@@ -244,14 +244,15 @@ const fetchUserSettings = async () => {
       const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/getUserSettings`, {
         withCredentials: true, // important for sessions
       });
-      setDarkMode(res?.data?.settings?.darkMode);
+      console.log(res.data);
+      setDarkMode(res?.data?.darkMode);
     } catch (err) {
       console.error("Failed to fetch user settings:", err);
     }
   };
 
   useEffect(() => {
-    fetchUserSettings();
+      fetchUserSettings();
   }, []);
 
 

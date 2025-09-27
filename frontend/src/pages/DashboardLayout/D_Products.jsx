@@ -367,7 +367,7 @@ const D_Products = ({ loadingProducts, darkMode, currencySymbol,setDashboardErro
                       {/* category and price */}
                       <div className={`flex mt-2 font-semibold justify-between items-center ${textSecondary}`}>
                         {/* category */}
-                        <div className="font-bold text-xs sm:text-sm truncate max-w-[120px]">Category: {product.category.category}</div>
+                        <div className="font-bold text-xs sm:text-sm truncate max-w-[120px]">Category: {product?.category?.category}</div>
                         {/* price */}
                         <div className={`text-lg sm:text-xl ${textPrimary}`}>{currencySymbol}{product.price}</div>
                       </div>

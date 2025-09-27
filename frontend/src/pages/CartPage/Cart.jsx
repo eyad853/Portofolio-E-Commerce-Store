@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { FaTrash, FaUser, FaPlus, FaMinus, FaShoppingBag } from "react-icons/fa";
 import Nav from '../../components/Nav/Nav';
 import PaymentModal from '../../components/Modals/PaymentModal/PaymentModal';
+import LocationModal from '../../components/Modals/LocationModal/LocationModal';
 
-const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,setDarkMode,storeName,storeLogo,}) => {
+const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,setDarkMode,storeName,storeLogo}) => {
   const [cart, setCart] = useState({});
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
@@ -13,7 +14,6 @@ const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,setDarkMode,storeName,
   const [isOpen , setIsOpen]=useState(false)
   const [clientSecret, setClientSecret] = useState('');
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
-
   const [shippingAddress , setShippingAddress]=useState({})
 
 
@@ -34,41 +34,7 @@ const Cart = ({ isCartOpen, setIsCartOpen, user, darkMode,setDarkMode,storeName,
 };
 
   const getUserLocation = async () => {
-  if (!navigator.geolocation) {
-    alert("Geolocation not supported");
-    return;
-  }
-
-  navigator.geolocation.getCurrentPosition(
-    async (position) => {
-      const { latitude, longitude } = position.coords;
-
-      try {
-        const res = await axios.get(
-          `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=0995dd79459147c780516bcc0d0da58d`
-        );
-
-        const components = res.data.results[0].components;
-
-        const shippingAddress = {
-          address: components.road || "",
-          city: components.city || components.town || components.village || "",
-          postalCode: components.postcode || "",
-          country: components.country || ""
-        };
-
-        setShippingAddress(shippingAddress)
-
-      } catch (error) {
-        console.error(error);
-        alert("Failed to get location or send data.");
-      }
-    },
-    (error) => {
-      console.error(error);
-      alert("Location access denied or failed.");
-    }
-  );
+   setIsLocationModalOpen(true)
 };
 
 const clearCart = async () => {
@@ -341,7 +307,6 @@ const clearCart = async () => {
                 <button 
                 onClick={()=>{
                   getUserLocation()
-                  handleCheckout()
                 }}
                 className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
                   Proceed to Checkout
@@ -377,7 +342,8 @@ const clearCart = async () => {
           </div>
         )}
       </div>
-      <PaymentModal darkMode={darkMode} createOrder={createOrder} clearCart={clearCart} user={user} isOpen={isOpen} setIsOpen={setIsOpen} clientSecret={clientSecret}/>
+      <LocationModal handleCheckout={handleCheckout} setShippingAddress={setShippingAddress} darkMode={darkMode} isModalOpen={isLocationModalOpen} setIsModalOpen={setIsLocationModalOpen} />
+      <PaymentModal  darkMode={darkMode} createOrder={createOrder} clearCart={clearCart} user={user} isOpen={isOpen} setIsOpen={setIsOpen} clientSecret={clientSecret}/>
     </div>
     </>
   );

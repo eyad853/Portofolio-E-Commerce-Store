@@ -78,7 +78,7 @@ const Nav = ({setShowAuthModal,user , darkMode , storeName,storeLogo,setIsOpen,s
             <div className='font-semibold text-sm md:text-base hidden sm:block'>
                 {user&&user.username}
             </div>
-            {viewUserData&&<ViewUserData setDarkMode={setDarkMode} user={user} darkMode={darkMode}/>}
+            {viewUserData&&<ViewUserData profileRef={profileRef} setDarkMode={setDarkMode} user={user} darkMode={darkMode}/>}
         </div>
     </div>
   )
