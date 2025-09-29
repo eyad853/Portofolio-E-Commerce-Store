@@ -912,8 +912,6 @@ export const getAllOrders = async(req , res)=>{
   }
 }
 
-import ordersModel from "../models/orderModel.js"; // adjust path as needed
-
 // Cancel order controller using session
 export const cancelOrder = async (req, res) => {
   try {
