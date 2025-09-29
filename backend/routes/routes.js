@@ -1,6 +1,7 @@
 import express from "express"
 import { AddCategory,
     addToCart,
+    cancelOrder,
     clearUserCart,
     createAnOrder,
     createProduct,
@@ -122,7 +123,7 @@ router.get("/getMonthlyOverview", getMonthlyOverview);
 router.post(`/order/create`, createAnOrder)
 router.get(`/order/getUserOrders`, getUserOrders)
 router.get(`/order/getAll`, getAllOrders)
-router.delete(`/order/cancel/:id`,isRealAdmin, getAllOrders)
+router.delete(`/order/cancel/:id`, cancelOrder)
 
 // settings
 router.get('/settings/get', getSettingsController);

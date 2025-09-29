@@ -912,6 +912,35 @@ export const getAllOrders = async(req , res)=>{
   }
 }
 
+import ordersModel from "../models/orderModel.js"; // adjust path as needed
+
+// Cancel order controller using session
+export const cancelOrder = async (req, res) => {
+  try {
+    // Make sure the user is logged in via session
+    const userId = req?.user?.id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized: Please login first" });
+    }
+
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ message: "Order ID is required" });
+    }
+
+    // Find the order belonging to the logged-in user
+    const order = await ordersModel.findOneAndDelete({user:userId , _id:id});
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.status(200).json({ message: "Order canceled successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 // Overview: Revenue, Orders, New Customers
 export const getAnalyticsOverview = async (req, res) => {
   try {

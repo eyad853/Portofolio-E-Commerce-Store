@@ -48,10 +48,7 @@ const UserOrders = ({user, darkMode,setDarkMode,storeName,storeLogo}) => {
         alert('Failed to cancel order')
       }
     } catch(err) {
-      console.log(err);
-      // Revert on error
-      setOrders(orders.filter(order => order._id !== orderId))
-      alert('Failed to cancel order')
+      setError(err.response.data.message)
     }
   }
 
